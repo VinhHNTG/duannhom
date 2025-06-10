@@ -35,10 +35,10 @@ public class QLHD extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         TBdonHang = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        TXTmaDH = new javax.swing.JTextField();
-        TXTtenDH = new javax.swing.JTextField();
-        TXTslDH = new javax.swing.JTextField();
-        TXTgiaDH = new javax.swing.JTextField();
+        TXTmaHD = new javax.swing.JTextField();
+        TXTmaNV = new javax.swing.JTextField();
+        TXTngayDat = new javax.swing.JTextField();
+        TXTgia = new javax.swing.JTextField();
         BTaddDH = new javax.swing.JButton();
         BTupdateDH = new javax.swing.JButton();
         BTdeleteDH = new javax.swing.JButton();
@@ -103,10 +103,10 @@ public class QLHD extends javax.swing.JPanel {
                         .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TXTmaDH)
-                    .addComponent(TXTtenDH)
-                    .addComponent(TXTslDH)
-                    .addComponent(TXTgiaDH, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                    .addComponent(TXTmaHD)
+                    .addComponent(TXTmaNV)
+                    .addComponent(TXTngayDat)
+                    .addComponent(TXTgia, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                     .addComponent(TXTmaKH))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,22 +131,22 @@ public class QLHD extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(TXTmaDH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TXTmaHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3)
-                                    .addComponent(TXTtenDH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(TXTmaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(70, 70, 70)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
-                                    .addComponent(TXTslDH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(TXTngayDat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(TXTgiaDH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(TXTgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(BTaddDH, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -174,11 +174,11 @@ public class QLHD extends javax.swing.JPanel {
     private javax.swing.JButton BTdeleteDH;
     private javax.swing.JButton BTupdateDH;
     private javax.swing.JTable TBdonHang;
-    private javax.swing.JTextField TXTgiaDH;
-    private javax.swing.JTextField TXTmaDH;
+    private javax.swing.JTextField TXTgia;
+    private javax.swing.JTextField TXTmaHD;
     private javax.swing.JTextField TXTmaKH;
-    private javax.swing.JTextField TXTslDH;
-    private javax.swing.JTextField TXTtenDH;
+    private javax.swing.JTextField TXTmaNV;
+    private javax.swing.JTextField TXTngayDat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
