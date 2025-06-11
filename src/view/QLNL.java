@@ -4,6 +4,11 @@
  */
 package view;
 
+import DAO.NguyenLieuDAO;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.NguyenLieu;
+
 /**
  *
  * @author ACER
@@ -13,8 +18,117 @@ public class QLNL extends javax.swing.JPanel {
     /**
      * Creates new form QLNL
      */
+   DefaultTableModel tableModel;
+    NguyenLieuDAO nlDao = new NguyenLieuDAO();
+
+    /**
+     * Creates new form QLNLpanel
+     */
     public QLNL() {
         initComponents();
+        initTable();
+        fillTable();
+    }
+
+    public void initTable() {
+        String[] cols = new String[]{"Mã Nl", "Tên Nl", "Số lượng", "Giá nhập", "Mã SP"};
+        tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(cols);
+        TBnguyenLieu.setModel(tableModel);
+    }
+
+    public void fillTable() {
+        tableModel.setRowCount(0);
+        for (NguyenLieu nl : nlDao.getAll()) {
+            tableModel.addRow(nlDao.getRow(nl));
+        }
+    }
+
+    private boolean validateForm() {
+        if (TXTmaNL.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã nguyên liệu.");
+            return false;
+        }
+        if (TXTtenNL.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên nguyên liệu.");
+            return false;
+        }
+        if (TXTsoLuong.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng.");
+            return false;
+        }        
+        if (TXTgiaNhap.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập giá nhập.");
+            return false;
+        }
+        try {
+            double gia = Double.parseDouble(TXTgiaNhap.getText().trim());
+            if (gia <= 0) {
+                JOptionPane.showMessageDialog(this, "Giá nhập phải lớn hơn 0.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá nhập phải là số hợp lệ.");
+            return false;
+        }
+
+        if (TXTmaSP.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm.");
+            return false;
+        }
+
+        return true;
+    }
+    
+    public void add(){
+        int maNL = Integer.parseInt(TXTmaNL.getText());
+        String tenNL = TXTtenNL.getText();
+        int soluong = Integer.valueOf(TXTsoLuong.getText());
+        String gianhap = TXTgiaNhap.getText();
+        int maSP = Integer.parseInt(TXTmaSP.getText());
+        model.NguyenLieu nl = new model.NguyenLieu(maNL,tenNL,soluong,gianhap,maSP);
+        if (nlDao.addNL(nl)==1) {
+            fillTable();
+            JOptionPane.showMessageDialog(this, "Nhap thanh cong");
+        }else{
+            JOptionPane.showMessageDialog(this, "Loi!");
+        } 
+    }
+    
+    public void Update() {
+        int i = TBnguyenLieu.getSelectedRow();
+        if (i != -1) { 
+        int maNL = Integer.valueOf(TXTmaNL.getText());
+        String tenNL = TXTtenNL.getText();
+        int soluong = Integer.valueOf(TXTsoLuong.getText());
+        String gianhap = TXTgiaNhap.getText();
+        int maSP = Integer.valueOf(TXTmaSP.getText());
+         model.NguyenLieu nl = new model.NguyenLieu(maNL,tenNL,soluong,gianhap,maSP);
+        if (nlDao.editNL(nl)==1) {
+            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
+            fillTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thất bại");
+        } 
+        }else{
+            JOptionPane.showMessageDialog(this, "Vui long chon 1 hang de sua");
+        }
+    }
+    
+     public void deleteNL() {
+        int maNL = Integer.valueOf(TXTmaNL.getText());
+        String tenNL = TXTtenNL.getText();
+        int soluong = Integer.valueOf(TXTsoLuong.getText());
+        String gianhap = TXTgiaNhap.getText();
+        int maSP = Integer.valueOf(TXTmaSP.getText());
+          model.NguyenLieu nl = new model.NguyenLieu(maNL,tenNL,soluong,gianhap,maSP);
+
+        if (nlDao.deleteNL(nl)==1) {
+            fillTable();
+            JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra!");
+        }
     }
 
     /**
@@ -71,10 +185,25 @@ public class QLNL extends javax.swing.JPanel {
         jScrollPane1.setViewportView(TBnguyenLieu);
 
         BTupdateNL.setText("SỬA");
+        BTupdateNL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTupdateNLActionPerformed(evt);
+            }
+        });
 
         BTaddNL.setText("THÊM");
+        BTaddNL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTaddNLActionPerformed(evt);
+            }
+        });
 
         BTdeleteNL.setText("XÓA");
+        BTdeleteNL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTdeleteNLActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -148,6 +277,21 @@ public class QLNL extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BTaddNLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTaddNLActionPerformed
+        // TODO add your handling code here:
+        add();
+    }//GEN-LAST:event_BTaddNLActionPerformed
+
+    private void BTupdateNLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTupdateNLActionPerformed
+        // TODO add your handling code here:
+        Update();
+    }//GEN-LAST:event_BTupdateNLActionPerformed
+
+    private void BTdeleteNLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTdeleteNLActionPerformed
+        // TODO add your handling code here:
+        deleteNL();
+    }//GEN-LAST:event_BTdeleteNLActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
