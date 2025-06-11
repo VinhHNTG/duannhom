@@ -29,11 +29,13 @@
                   <Component id="btnQLNV" max="32767" attributes="0"/>
                   <Component id="btnQLSP" max="32767" attributes="0"/>
                   <Component id="btnQLDH" max="32767" attributes="0"/>
-                  <Component id="btnDoanhThu" min="-2" pref="141" max="-2" attributes="0"/>
+                  <Component id="btnDoanhThu" max="32767" attributes="0"/>
+                  <Component id="jButton1" max="32767" attributes="0"/>
+                  <Component id="jButton2" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="PNtrangChuQuanLy" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="61" max="32767" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -58,6 +60,10 @@
                       <Component id="btnQLDH" min="-2" pref="43" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnDoanhThu" min="-2" pref="43" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jButton2" min="-2" pref="43" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -78,7 +84,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnQLDH">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; &#x110;&#x1a1;n H&#xe0;ng"/>
+        <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; H&#xf3;a &#x110;&#x1a1;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnDoanhThu">
@@ -110,6 +116,16 @@
           <Color blue="ff" green="66" red="66" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Trang ch&#x1ee7; Qu&#x1ea3;n l&#xfd;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; S&#x1ea3;n Ph&#x1ea9;m Chi Ti&#x1ebf;t"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; H&#xf3;a &#x110;&#x1a1;n Chi Ti&#x1ebf;t"/>
       </Properties>
     </Component>
   </SubComponents>
