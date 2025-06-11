@@ -4,6 +4,12 @@
  */
 package view;
 
+import DAO.HoaDonChiTietDAO;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.ChiTietHoaDon;
+import java.sql.*;
+
 /**
  *
  * @author ACER
@@ -13,9 +19,123 @@ public class QLHDChiTiet extends javax.swing.JPanel {
     /**
      * Creates new form QLHDChiTiet
      */
+    DefaultTableModel tableModel;
+    HoaDonChiTietDAO hdctDao = new HoaDonChiTietDAO();
+
+    /**
+     * Creates new form QLHDCT
+     */
     public QLHDChiTiet() {
         initComponents();
+        initTable();
+        fillTable();
     }
+
+    public void initTable() {
+        String[] cols = new String[]{"Mã HĐCT", "Mã HĐ", "Mã SP", "Đơn giá", "Ghi chú","Trạng thái"};
+        tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(cols);
+        TBdonHang.setModel(tableModel);
+    }
+
+    public void fillTable() {
+        tableModel.setRowCount(0);
+        for (ChiTietHoaDon hdct : hdctDao.getAll()) {
+            tableModel.addRow(hdctDao.getRow(hdct));
+        }
+    }
+
+    private boolean validateForm() {
+        if (TXTmaHDCT.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hóa đơn chi tiết.");
+            return false;
+        }
+        if (TXTmaHD.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hóa đơn.");
+            return false;
+        }
+        if (TXTmaSP.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm.");
+            return false;
+        }
+        if (TXTgia.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập giá.");
+            return false;
+        }
+        try {
+            double gia = Double.parseDouble(TXTgia.getText().trim());
+            if (gia <= 0) {
+                JOptionPane.showMessageDialog(this, "giá phải lớn hơn 0.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "giá phải là số nguyên.");
+            return false;
+        }
+        if (TXTtrangThai.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập trạng thái.");
+            return false;
+        }
+
+        return true;
+    }
+    
+    public void add(){
+        int maHDCT = Integer.parseInt(TXTmaHDCT.getText());
+        int maHD = Integer.parseInt(TXTmaHD.getText());
+        int maSP = Integer.parseInt(TXTmaSP.getText());
+        String ghichu = TXTghiChu.getText();
+        double giatien = Double.parseDouble(TXTgia.getText());
+        String trangthai = TXTtrangThai.getText();
+        ChiTietHoaDon hd = new ChiTietHoaDon(maHDCT, maHD, maSP, ghichu,giatien, trangthai);
+        if (hdctDao.addHDCT(hd)==1) {
+            fillTable();
+            JOptionPane.showMessageDialog(this, "Nhap thanh cong");
+        }else{
+            JOptionPane.showMessageDialog(this, "Loi!");
+        }
+        
+    }
+    
+    public void Update() {
+        int i = TBdonHang.getSelectedRow();
+        if (i != -1) {          
+         int maHDCT = Integer.parseInt(TXTmaHDCT.getText());
+        int maHD = Integer.parseInt(TXTmaHD.getText());
+        int maSP = Integer.parseInt(TXTmaSP.getText());
+        String ghichu = TXTghiChu.getText();
+        double giatien = Double.parseDouble(TXTgia.getText());
+        String trangthai = TXTtrangThai.getText();
+        ChiTietHoaDon hd = new ChiTietHoaDon(maHDCT, maHD, maSP, ghichu,giatien, trangthai);
+        if (hdctDao.editHDCT(hd)==1) {
+            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
+            fillTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thất bại");
+        } 
+        }else{
+            JOptionPane.showMessageDialog(this, "Vui long chon 1 hang de sua");
+        }
+    }
+    
+     public void deleteHDCT() {
+        int maHDCT = Integer.parseInt(TXTmaHDCT.getText());
+        int maHD = Integer.parseInt(TXTmaHD.getText());
+        int maSP = Integer.parseInt(TXTmaSP.getText());
+        String ghichu = TXTghiChu.getText();
+        double giatien = Double.parseDouble(TXTgia.getText());
+        String trangthai = TXTtrangThai.getText();
+        ChiTietHoaDon hd = new ChiTietHoaDon(maHDCT, maHD, maSP, ghichu,giatien, trangthai);
+
+        if (hdctDao.deleteHDCT(hd)==1) {
+            fillTable();
+            JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra!");
+        }
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,10 +178,20 @@ public class QLHDChiTiet extends javax.swing.JPanel {
         jLabel4.setText("Mã sản phẩm");
 
         BTaddDH.setText("THÊM");
+        BTaddDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTaddDHActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Đơn giá:");
 
         BTupdateDH.setText("SỬA");
+        BTupdateDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTupdateDHActionPerformed(evt);
+            }
+        });
 
         TBdonHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,6 +207,11 @@ public class QLHDChiTiet extends javax.swing.JPanel {
         jScrollPane1.setViewportView(TBdonHang);
 
         BTdeleteDH.setText("XÓA");
+        BTdeleteDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTdeleteDHActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Ghi chú");
 
@@ -178,6 +313,21 @@ public class QLHDChiTiet extends javax.swing.JPanel {
     private void TXTghiChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTghiChuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTghiChuActionPerformed
+
+    private void BTaddDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTaddDHActionPerformed
+        // TODO add your handling code here:
+        add();
+    }//GEN-LAST:event_BTaddDHActionPerformed
+
+    private void BTupdateDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTupdateDHActionPerformed
+        // TODO add your handling code here:
+        Update();
+    }//GEN-LAST:event_BTupdateDHActionPerformed
+
+    private void BTdeleteDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTdeleteDHActionPerformed
+        // TODO add your handling code here:
+        deleteHDCT();
+    }//GEN-LAST:event_BTdeleteDHActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

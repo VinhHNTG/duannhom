@@ -185,16 +185,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="TH&#xca;M"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTaddDHActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BTupdateDH">
       <Properties>
         <Property name="text" type="java.lang.String" value="S&#x1eec;A"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTupdateDHActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BTdeleteDH">
       <Properties>
         <Property name="text" type="java.lang.String" value="X&#xd3;A"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTdeleteDHActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TXTmaKH">
       <Events>

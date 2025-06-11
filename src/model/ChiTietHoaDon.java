@@ -13,19 +13,19 @@ public class ChiTietHoaDon {
     private int maHD;
     private int maSP;
     private int sl;
-    private double giaBan;
+    private String ghichu;
     private double donGia;
     private String trangThai;
 
-    public ChiTietHoaDon() {
+    public ChiTietHoaDon(int maHDCT, int maHD1, int maSP1, String ghichu, double dongia, String trangthai) {
     }
 
-    public ChiTietHoaDon(int maCTHD, int maHD, int maSP, int sl, double giaBan, double donGia, String trangThai) {
+    public ChiTietHoaDon(int maCTHD, int maHD, int maSP, int sl, String ghichu, double donGia, String trangThai) {
         this.maCTHD = maCTHD;
         this.maHD = maHD;
         this.maSP = maSP;
         this.sl = sl;
-        this.giaBan = giaBan;
+        this.ghichu = ghichu;
         this.donGia = donGia;
         this.trangThai = trangThai;
     }
@@ -62,13 +62,15 @@ public class ChiTietHoaDon {
         this.sl = sl;
     }
 
-    public double getGiaBan() {
-        return giaBan;
+    public String getGhichu() {
+        return ghichu;
     }
 
-    public void setGiaBan(double giaBan) {
-        this.giaBan = giaBan;
+    public void setGhichu(String ghichu) {
+        this.ghichu = ghichu;
     }
+
+    
 
     public double getDonGia() {
         return donGia;

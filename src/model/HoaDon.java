@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-
+import java.sql.*;
 /**
  *
  * @author ADMIN
@@ -11,14 +11,14 @@ package model;
 public class HoaDon {
     private int maHD;
     private int maNV;
-    private String ngayDat;
+    private Date ngayDat;
     private double tongTien;
     private int maKH;
 
-    public HoaDon() {
+    public HoaDon(int maHoaDon, int maNV1, double giatien, Date ngaydat, int maKH1) {
     }
 
-    public HoaDon(int maHD, int maNV, String ngayDat, double tongTien, int maKH) {
+    public HoaDon(int maHD, int maNV, Date ngayDat, double tongTien, int maKH) {
         this.maHD = maHD;
         this.maNV = maNV;
         this.ngayDat = ngayDat;
@@ -42,11 +42,11 @@ public class HoaDon {
         this.maNV = maNV;
     }
 
-    public String getNgayDat() {
+    public Date getNgayDat() {
         return ngayDat;
     }
 
-    public void setNgayDat(String ngayDat) {
+    public void setNgayDat(Date ngayDat) {
         this.ngayDat = ngayDat;
     }
 

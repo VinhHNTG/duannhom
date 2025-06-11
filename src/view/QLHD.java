@@ -1,5 +1,11 @@
 package view;
 
+import DAO.HoaDonDAO;
+import java.sql.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.HoaDon;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -14,8 +20,115 @@ public class QLHD extends javax.swing.JPanel {
     /**
      * Creates new form QLDH
      */
+   DefaultTableModel tableModel;
+    HoaDonDAO hdDao = new HoaDonDAO();
+    /**
+     * Creates new form QLHD
+     */
     public QLHD() {
         initComponents();
+        initTable();
+        fillTable();
+    }
+ 
+    public void initTable() {
+        String[] cols = new String[]{"Mã HĐ", "Mã NV", "Ngày đặt", "Giá tiền", "Mã KH"};
+        tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(cols);
+        TBdonHang.setModel(tableModel);
+    }
+
+    public void fillTable() {
+        tableModel.setRowCount(0);
+        for (HoaDon hd : hdDao.getAll()) {
+            tableModel.addRow(hdDao.getRow(hd));
+        }
+    }
+    
+ private boolean validateForm() {
+    if (TXTmaHD.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hóa đơn.");
+        return false;
+    }
+    if (TXTmaNV.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập mã nhân viên.");
+        return false;
+    }
+    if (TXTngayDat.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập ngày đặt.");
+        return false;
+    }
+    if (TXTgia.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập giá tiền.");
+        return false;
+    }
+    try {
+        double gia = Double.parseDouble(TXTgia.getText().trim());
+        if (gia <= 0) {
+            JOptionPane.showMessageDialog(this, "Giá tiền phải lớn hơn 0.");
+            return false;
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Giá tiền phải là số hợp lệ.");
+        return false;
+    }
+    if (TXTmaKH.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập mã khách hàng.");
+        return false;
+    }
+    return true;
+}
+ 
+  public void add(){
+        int maSP = Integer.parseInt(TXTmaHD.getText());
+        int tenSP = Integer.parseInt(TXTmaNV.getText());
+        Date ngaydathang = Date.valueOf(TXTngayDat.getText());
+        double giatien = Double.parseDouble(TXTgia.getText());
+        int maKH = Integer.valueOf(TXTmaKH.getText());
+        HoaDon hd = new HoaDon(maSP,tenSP,giatien,ngaydathang,maKH);
+        if (hdDao.addHD(hd)==1) {
+            fillTable();
+            JOptionPane.showMessageDialog(this, "Nhap thanh cong");
+        }else{
+            JOptionPane.showMessageDialog(this, "Loi!");
+        }
+        
+    }
+    
+    public void Update() {
+        int i = TBdonHang.getSelectedRow();
+        if (i != -1) {          
+         int maSP = Integer.parseInt(TXTmaHD.getText());
+        int tenSP = Integer.parseInt(TXTmaNV.getText());
+        Date ngaydathang = Date.valueOf(TXTngayDat.getText());
+        double giatien = Double.parseDouble(TXTgia.getText());
+        int maKH = Integer.valueOf(TXTmaKH.getText());
+        HoaDon hd = new HoaDon(maSP,tenSP,giatien,ngaydathang,maKH);
+        if (hdDao.editHD(hd)==1) {
+            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
+            fillTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thất bại");
+        } 
+        }else{
+            JOptionPane.showMessageDialog(this, "Vui long chon 1 hang de sua");
+        }
+    }
+    
+     public void deleteHD() {
+        int maSP = Integer.parseInt(TXTmaHD.getText());
+        int tenSP = Integer.parseInt(TXTmaNV.getText());
+        Date ngaydathang = Date.valueOf(TXTngayDat.getText());
+        double giatien = Double.parseDouble(TXTgia.getText());
+        int maKH = Integer.valueOf(TXTmaKH.getText());
+         HoaDon hd = new HoaDon(maSP,tenSP,giatien,ngaydathang,maKH);
+
+        if (hdDao.deleteHD(hd)==1) {
+            fillTable();
+            JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra!");
+        }
     }
 
     /**
@@ -72,10 +185,25 @@ public class QLHD extends javax.swing.JPanel {
         jLabel6.setText("Mã khách hàng:");
 
         BTaddDH.setText("THÊM");
+        BTaddDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTaddDHActionPerformed(evt);
+            }
+        });
 
         BTupdateDH.setText("SỬA");
+        BTupdateDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTupdateDHActionPerformed(evt);
+            }
+        });
 
         BTdeleteDH.setText("XÓA");
+        BTdeleteDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTdeleteDHActionPerformed(evt);
+            }
+        });
 
         TXTmaKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,6 +295,21 @@ public class QLHD extends javax.swing.JPanel {
     private void TXTmaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTmaKHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTmaKHActionPerformed
+
+    private void BTaddDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTaddDHActionPerformed
+        // TODO add your handling code here:
+        add();
+    }//GEN-LAST:event_BTaddDHActionPerformed
+
+    private void BTupdateDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTupdateDHActionPerformed
+        // TODO add your handling code here:
+        Update();
+    }//GEN-LAST:event_BTupdateDHActionPerformed
+
+    private void BTdeleteDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTdeleteDHActionPerformed
+        // TODO add your handling code here:
+        deleteHD();
+    }//GEN-LAST:event_BTdeleteDHActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

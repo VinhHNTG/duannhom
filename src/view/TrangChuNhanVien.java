@@ -4,6 +4,8 @@
  */
 package view;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author ACER
@@ -48,6 +50,11 @@ public class TrangChuNhanVien extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnQLKH.setText("Quản Lý Khách Hàng");
+        btnQLKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLKHActionPerformed(evt);
+            }
+        });
 
         btnQLNL.setText("Quản Lý Nguyên Liệu");
 
@@ -85,7 +92,7 @@ public class TrangChuNhanVien extends javax.swing.JFrame {
                     .addComponent(btnBanHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PNtrangChuNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(883, 883, 883))
+                .addGap(1081, 1081, 1081))
             .addGroup(layout.createSequentialGroup()
                 .addGap(398, 398, 398)
                 .addComponent(jLabel1)
@@ -112,6 +119,19 @@ public class TrangChuNhanVien extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnQLKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLKHActionPerformed
+        // TODO add your handling code here:
+        QLKH p1 = new QLKH();
+        p1.setSize(987, 583);
+        p1.setLocation(0, 0);
+        
+        //b2: de panel vao form
+        PNtrangChuNhanVien.removeAll();
+        PNtrangChuNhanVien.add(p1, BorderLayout.CENTER);
+        PNtrangChuNhanVien.repaint();
+        PNtrangChuNhanVien.revalidate();
+    }//GEN-LAST:event_btnQLKHActionPerformed
 
     /**
      * @param args the command line arguments
