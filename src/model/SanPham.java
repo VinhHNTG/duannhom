@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-
+import java.sql.*;
 /**
  *
  * @author ADMIN
@@ -12,14 +12,36 @@ public class SanPham {
     private int maSP;
     private String loai;
     private String tenSP;
+    private int giaban;
+    private Date ngaydathang;
 
-    public SanPham() {
+    public SanPham(int maSP1, String loai1, String ten, Date ngaydathang1, int giaBan) {
     }
 
-    public SanPham(int maSP, String loai, String tenSP) {
+    
+
+    public int getGiaban() {
+        return giaban;
+    }
+
+    public void setGiaban(int giaban) {
+        this.giaban = giaban;
+    }
+
+    public Date getNgaydathang() {
+        return ngaydathang;
+    }
+
+    public void setNgaydathang(Date ngayban) {
+        this.ngaydathang = ngayban;
+    }
+
+    public SanPham(int maSP, String loai, String tenSP, int giaban, Date ngaydathang) {
         this.maSP = maSP;
         this.loai = loai;
         this.tenSP = tenSP;
+        this.giaban = giaban;
+        this.ngaydathang = ngaydathang;
     }
 
     public int getMaSP() {
