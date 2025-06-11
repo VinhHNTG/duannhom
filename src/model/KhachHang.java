@@ -14,8 +14,6 @@ public class KhachHang {
     private String sdt;
     private String diaChi;
 
-    public KhachHang() {
-    }
 
     public KhachHang(int maKH, String tenKH, String sdt, String diaChi) {
         this.maKH = maKH;
