@@ -83,13 +83,21 @@ public class SanPhamDAO {
         }
         return false;
     }
+    
+    public boolean deleteHD(SanPham sp) {
+        String sql = "delete from SanPham where MaSP = ?";
+        try {
+            Connection con = DBconnect.getConnection();
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setInt(1, sp.getMaSP());
 
-    public boolean UpdateSP(view.SanPham sp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public boolean getadd(view.SanPham sp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            if (pstm.executeUpdate() > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
 

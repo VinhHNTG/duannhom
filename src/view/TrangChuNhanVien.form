@@ -53,7 +53,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="PNtrangChuNhanVien" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="883" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="1081" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="398" max="-2" attributes="0"/>
@@ -90,6 +90,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; Kh&#xe1;ch H&#xe0;ng"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQLKHActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnQLNL">
       <Properties>

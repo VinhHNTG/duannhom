@@ -4,6 +4,8 @@
  */
 package view;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author ADMIN
@@ -36,8 +38,18 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnQLNV.setText("Quản Lý Nhân viên");
+        btnQLNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLNVActionPerformed(evt);
+            }
+        });
 
         btnQLSP.setText("Quản Lý Sản Phẩm");
+        btnQLSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLSPActionPerformed(evt);
+            }
+        });
 
         btnQLDH.setText("Quản Lý Đơn Hàng");
 
@@ -98,6 +110,32 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnQLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLNVActionPerformed
+        // TODO add your handling code here:
+        NhanVien p1 = new NhanVien();
+        p1.setSize(987, 583);
+        p1.setLocation(0, 0);
+        
+        //b2: de panel vao form
+        PNtrangChuQuanLy.removeAll();
+        PNtrangChuQuanLy.add(p1, BorderLayout.CENTER);
+        PNtrangChuQuanLy.repaint();
+        PNtrangChuQuanLy.revalidate();
+    }//GEN-LAST:event_btnQLNVActionPerformed
+
+    private void btnQLSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLSPActionPerformed
+        // TODO add your handling code here:
+        SanPham p1 = new SanPham();
+        p1.setSize(987, 583);
+        p1.setLocation(0, 0);
+        
+        //b2: de panel vao form
+        PNtrangChuQuanLy.removeAll();
+        PNtrangChuQuanLy.add(p1, BorderLayout.CENTER);
+        PNtrangChuQuanLy.repaint();
+        PNtrangChuQuanLy.revalidate();
+    }//GEN-LAST:event_btnQLSPActionPerformed
 
     /**
      * @param args the command line arguments

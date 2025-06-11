@@ -28,7 +28,7 @@ public class QLHDChiTiet extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
         TXTmaSP = new javax.swing.JTextField();
-        TXTsoLuong = new javax.swing.JTextField();
+        TXTghiChu = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         TXTgia = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -42,12 +42,14 @@ public class QLHDChiTiet extends javax.swing.JPanel {
         TXTmaHDCT = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         TXTmaHD = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        TXTtrangThai = new javax.swing.JTextField();
 
         jLabel2.setText("Mã hóa đơn chi tiết:");
 
-        TXTsoLuong.addActionListener(new java.awt.event.ActionListener() {
+        TXTghiChu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TXTsoLuongActionPerformed(evt);
+                TXTghiChuActionPerformed(evt);
             }
         });
 
@@ -76,11 +78,13 @@ public class QLHDChiTiet extends javax.swing.JPanel {
 
         BTdeleteDH.setText("XÓA");
 
-        jLabel6.setText("Số lượng");
+        jLabel6.setText("Ghi chú");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 255));
         jLabel1.setText("Quản lý hóa đơn chi tiết");
+
+        jLabel7.setText("Trạng thái");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,20 +93,23 @@ public class QLHDChiTiet extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(TXTmaHDCT)
                     .addComponent(TXTmaHD)
                     .addComponent(TXTmaSP)
                     .addComponent(TXTgia, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                    .addComponent(TXTsoLuong))
+                    .addComponent(TXTghiChu)
+                    .addComponent(TXTtrangThai))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -154,19 +161,23 @@ public class QLHDChiTiet extends javax.swing.JPanel {
                         .addComponent(BTupdateDH, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addComponent(BTdeleteDH, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(51, 51, 51)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(TXTsoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                    .addComponent(TXTghiChu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(TXTtrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TXTsoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTsoLuongActionPerformed
+    private void TXTghiChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTghiChuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTsoLuongActionPerformed
+    }//GEN-LAST:event_TXTghiChuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -174,17 +185,19 @@ public class QLHDChiTiet extends javax.swing.JPanel {
     private javax.swing.JButton BTdeleteDH;
     private javax.swing.JButton BTupdateDH;
     private javax.swing.JTable TBdonHang;
+    private javax.swing.JTextField TXTghiChu;
     private javax.swing.JTextField TXTgia;
     private javax.swing.JTextField TXTmaHD;
     private javax.swing.JTextField TXTmaHDCT;
     private javax.swing.JTextField TXTmaSP;
-    private javax.swing.JTextField TXTsoLuong;
+    private javax.swing.JTextField TXTtrangThai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

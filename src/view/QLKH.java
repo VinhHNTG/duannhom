@@ -21,8 +21,8 @@ public class QLKH extends javax.swing.JPanel {
      */
     public QLKH() {
         initComponents();
-        fillTable();
         initTable();
+        fillTable();
     }
     
     public void initTable() {
