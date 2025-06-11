@@ -4,18 +4,115 @@
  */
 package view;
 
+import DAO.KhachHangDAO;
+import java.sql.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.*;
 /**
  *
  * @author Admin
  */
 public class QLKH extends javax.swing.JPanel {
-
+    DefaultTableModel tableModel;
+    KhachHangDAO khDao = new KhachHangDAO();
     /**
      * Creates new form Menu
      */
     public QLKH() {
         initComponents();
+        fillTable();
+        initTable();
     }
+    
+    public void initTable() {
+        String[] cols = new String[]{"Mã KH", "Tên KH", "Giới tính", "Tuổi", "Số bàn"};
+        tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(cols);
+        tableKH.setModel(tableModel);
+    }
+
+    public void fillTable() {
+        tableModel.setRowCount(0);
+        for (KhachHang kh : khDao.getAll()) {
+            tableModel.addRow(khDao.getRow(kh));
+        }
+    }
+
+    private boolean validateForm() {
+        if (txtMakh.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã khách hàng.");
+            return false;
+        }
+        if (txtTenkh.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên khách hàng.");
+            return false;
+        }
+        if (txtSdt.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập SDT.");
+            return false;
+        }
+        if (txtDiaChi.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng địa chỉ.");
+            return false;
+        }
+            return true;
+            }
+
+        public void add(){
+        int maKH = Integer.parseInt(txtMakh.getText());
+        String tenKH = txtTenkh.getText();
+        String sdt = txtSdt.getText();
+        String diachi = txtDiaChi.getText();
+        model.KhachHang kh = new model.KhachHang(maKH,tenKH,sdt,diachi);
+        if (khDao.addKH(kh)==1) {
+            fillTable();
+            JOptionPane.showMessageDialog(this, "Nhap thanh cong");
+        }else{
+            JOptionPane.showMessageDialog(this, "Loi!");
+        } 
+    }
+    
+    public void Update() {
+        int i = tableKH.getSelectedRow();
+        if (i != -1) {          
+        int maKH = Integer.parseInt(txtMakh.getText());
+        String tenKH = txtTenkh.getText();
+        String sdt = txtSdt.getText();
+        String diachi = txtDiaChi.getText();
+        model.KhachHang kh = new model.KhachHang(maKH, tenKH, sdt, diachi);
+        if (khDao.editKH(kh)==1) {
+            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
+            fillTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thất bại");
+        } 
+        }else{
+            JOptionPane.showMessageDialog(this, "Vui long chon 1 hang de sua");
+        }
+    }
+    
+     public void deleteSP() {
+        int maKH = Integer.valueOf(txtMakh.getText());
+        String tenKH = txtTenkh.getText();
+        String sdt = txtSdt.getText();
+        String diachi = txtDiaChi.getText();
+         model.KhachHang kh = new model.KhachHang(maKH,tenKH,sdt,diachi);
+
+        if (khDao.deleteKH(kh)==1) {
+            fillTable();
+            JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra!");
+        }
+    }
+     
+     public void reset(){
+         txtMakh.setText("");
+         txtTenkh.setText("");
+         txtSdt.setText("");
+         txtDiaChi.setText("");
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,7 +133,7 @@ public class QLKH extends javax.swing.JPanel {
         txtSdt = new javax.swing.JTextField();
         txtDiaChi = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtbang = new javax.swing.JTable();
+        tableKH = new javax.swing.JTable();
         txtThem = new javax.swing.JButton();
         txtSua = new javax.swing.JButton();
         txtXoa = new javax.swing.JButton();
@@ -53,7 +150,7 @@ public class QLKH extends javax.swing.JPanel {
 
         jLabel5.setText("Địa Chỉ");
 
-        txtbang.setModel(new javax.swing.table.DefaultTableModel(
+        tableKH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -64,15 +161,35 @@ public class QLKH extends javax.swing.JPanel {
                 "Mã Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Địa Chỉ"
             }
         ));
-        jScrollPane1.setViewportView(txtbang);
+        jScrollPane1.setViewportView(tableKH);
 
         txtThem.setText("Thêm");
+        txtThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtThemActionPerformed(evt);
+            }
+        });
 
         txtSua.setText("Sửa");
+        txtSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSuaActionPerformed(evt);
+            }
+        });
 
         txtXoa.setText("Xóa");
+        txtXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtXoaActionPerformed(evt);
+            }
+        });
 
         txtLammoi.setText("Làm mới");
+        txtLammoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLammoiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -144,6 +261,26 @@ public class QLKH extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtThemActionPerformed
+        // TODO add your handling code here:
+        add();
+    }//GEN-LAST:event_txtThemActionPerformed
+
+    private void txtSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSuaActionPerformed
+        // TODO add your handling code here:
+        Update();
+    }//GEN-LAST:event_txtSuaActionPerformed
+
+    private void txtXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtXoaActionPerformed
+        // TODO add your handling code here:
+        Update();
+    }//GEN-LAST:event_txtXoaActionPerformed
+
+    private void txtLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLammoiActionPerformed
+        // TODO add your handling code here:
+        reset();
+    }//GEN-LAST:event_txtLammoiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -152,6 +289,7 @@ public class QLKH extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableKH;
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JButton txtLammoi;
     private javax.swing.JTextField txtMakh;
@@ -160,6 +298,5 @@ public class QLKH extends javax.swing.JPanel {
     private javax.swing.JTextField txtTenkh;
     private javax.swing.JButton txtThem;
     private javax.swing.JButton txtXoa;
-    private javax.swing.JTable txtbang;
     // End of variables declaration//GEN-END:variables
 }
