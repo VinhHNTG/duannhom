@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import model.SanPhamChiTiet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,8 +24,8 @@ public class SanPhamChiTietDAO {
     }
 
     public SanPhamChiTietDAO() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 
     
     public List<SanPhamChiTietDAO> getAll() {

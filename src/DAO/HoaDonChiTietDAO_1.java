@@ -18,7 +18,7 @@ import model.*;
  *
  * @author ACER
  */
-public class HoaDonChiTietDAO {
+public class HoaDonChiTietDAO_1 {
      public List<ChiTietHoaDon> getAll() {
         List<ChiTietHoaDon> list = new ArrayList<>();
         String sql = "select * from HoaDonChiTiet";

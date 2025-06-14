@@ -5,6 +5,8 @@
 package view;
 
 import java.awt.BorderLayout;
+import model.ChiTietHoaDon;
+import model.HoaDon;
 
 /**
  *
@@ -54,8 +56,18 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         });
 
         btnQLDH.setText("Quản Lý Hóa Đơn");
+        btnQLDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLDHActionPerformed(evt);
+            }
+        });
 
         btnDoanhThu.setText("Doanh Thu");
+        btnDoanhThu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoanhThuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PNtrangChuQuanLyLayout = new javax.swing.GroupLayout(PNtrangChuQuanLy);
         PNtrangChuQuanLy.setLayout(PNtrangChuQuanLyLayout);
@@ -73,8 +85,18 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         jLabel1.setText("Trang chủ Quản lý");
 
         jButton1.setText("Quản Lý Sản Phẩm Chi Tiết");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Quản lý Hóa Đơn Chi Tiết");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,6 +171,58 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         PNtrangChuQuanLy.revalidate();
     }//GEN-LAST:event_btnQLSPActionPerformed
 
+    private void btnQLDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLDHActionPerformed
+        // TODO add your handling code here:;
+        QLHD p1 = new QLHD();
+        p1.setSize(987, 583);
+        p1.setLocation(0, 0);
+        
+        //b2: de panel vao form
+        PNtrangChuQuanLy.removeAll();
+        PNtrangChuQuanLy.add(p1, BorderLayout.CENTER);
+        PNtrangChuQuanLy.repaint();
+        PNtrangChuQuanLy.revalidate();
+    }//GEN-LAST:event_btnQLDHActionPerformed
+
+    private void btnDoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoanhThuActionPerformed
+        // TODO add your handling code here:
+        DoanhThu p1 = new DoanhThu();
+        p1.setSize(987, 583);
+        p1.setLocation(0, 0);
+        
+        //b2: de panel vao form
+        PNtrangChuQuanLy.removeAll();
+        PNtrangChuQuanLy.add(p1, BorderLayout.CENTER);
+        PNtrangChuQuanLy.repaint();
+        PNtrangChuQuanLy.revalidate();
+    }//GEN-LAST:event_btnDoanhThuActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        SanPhamChiTietVIEW p1 = new SanPhamChiTietVIEW();
+        p1.setSize(987, 583);
+        p1.setLocation(0, 0);
+        
+        //b2: de panel vao form
+        PNtrangChuQuanLy.removeAll();
+        PNtrangChuQuanLy.add(p1, BorderLayout.CENTER);
+        PNtrangChuQuanLy.repaint();
+        PNtrangChuQuanLy.revalidate();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        QLHDChiTiet p1 = new QLHDChiTiet();
+        p1.setSize(987, 583);
+        p1.setLocation(0, 0);
+        
+        //b2: de panel vao form
+        PNtrangChuQuanLy.removeAll();
+        PNtrangChuQuanLy.add(p1, BorderLayout.CENTER);
+        PNtrangChuQuanLy.repaint();
+        PNtrangChuQuanLy.revalidate();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -174,6 +248,8 @@ public class TrangChuQuanLy extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TrangChuQuanLy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

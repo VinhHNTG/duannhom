@@ -4,7 +4,7 @@
  */
 package view;
 
-import DAO.HoaDonChiTietDAO;
+import DAO.HoaDonChiTietDAO_1;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ChiTietHoaDon;
@@ -20,7 +20,7 @@ public class QLHDChiTiet extends javax.swing.JPanel {
      * Creates new form QLHDChiTiet
      */
     DefaultTableModel tableModel;
-    HoaDonChiTietDAO hdctDao = new HoaDonChiTietDAO();
+    HoaDonChiTietDAO_1 hdctDao = new HoaDonChiTietDAO_1();
 
     /**
      * Creates new form QLHDCT

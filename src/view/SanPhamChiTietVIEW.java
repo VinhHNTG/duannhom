@@ -27,8 +27,6 @@ public class SanPhamChiTietVIEW extends javax.swing.JPanel {
      */
     public SanPhamChiTietVIEW() {
         initComponents();
-        initTable();
-        fillTable();
     }
 
     public void initTable() {
@@ -38,12 +36,6 @@ public class SanPhamChiTietVIEW extends javax.swing.JPanel {
         TBsanPhamChiTiet.setModel(tableModel);
     }
 
-    public void fillTable() {
-        tableModel.setRowCount(0);
-        for (model.SanPhamChiTiet spct : spctDAO.getAll()) {
-            tableModel.addRow(spctDAO.getRow(spct));
-        }
-    }
 
     private boolean validateForm() {
         if (TXTmaSPCT.getText().trim().isEmpty()) {
@@ -72,7 +64,6 @@ public class SanPhamChiTietVIEW extends javax.swing.JPanel {
         int maTopping = Integer.parseInt(TXTmaToping.getText());
         SanPhamChiTiet spct = new SanPhamChiTiet(maSPCT, maSP, size, maTopping);
         if (spctDAO.addNL(spct)==1) {
-            fillTable();
             JOptionPane.showMessageDialog(this, "Nhap thanh cong");
         }else{
             JOptionPane.showMessageDialog(this, "Loi!");
@@ -89,7 +80,6 @@ public class SanPhamChiTietVIEW extends javax.swing.JPanel {
          SanPhamChiTiet spct = new SanPhamChiTiet(maSPCT, maSP, size, maTopping);
         if (spctDAO.editNL(spct)==1) {
             JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
-            fillTable();
         } else {
             JOptionPane.showMessageDialog(this, "Sửa dữ liệu thất bại");
         } 
@@ -106,7 +96,6 @@ public class SanPhamChiTietVIEW extends javax.swing.JPanel {
           SanPhamChiTiet spct = new SanPhamChiTiet(maSPCT, maSP, size, maTopping);
 
         if (spctDAO.deleteNL(spct)==1) {
-            fillTable();
             JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Có lỗi xảy ra!");
@@ -189,43 +178,37 @@ public class SanPhamChiTietVIEW extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TXTmaSPCT)
-                    .addComponent(TXTmaSP)
-                    .addComponent(TXTsize)
-                    .addComponent(TXTmaToping, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
-                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(TXTmaSPCT)
+                                    .addComponent(TXTmaSP)
+                                    .addComponent(TXTsize)
+                                    .addComponent(TXTmaToping, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))))
+                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BTeditSPCT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BTaddSPCT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BTeditSPCT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(BTdeleteSPCT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(54, 54, 54))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(BTdeleteSPCT, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(168, 168, 168))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))))
+                        .addGap(0, 84, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(TXTmaSPCT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,9 +231,9 @@ public class SanPhamChiTietVIEW extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(TXTmaToping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
