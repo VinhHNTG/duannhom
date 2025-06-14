@@ -42,7 +42,7 @@
                                   <Component id="TXTgiaBan" min="-2" pref="292" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="TXTloai" min="-2" pref="292" max="-2" attributes="0"/>
+                                          <Component id="TXTSoLuong" min="-2" pref="292" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="btnXóa" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -88,7 +88,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="TXTloai" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TXTSoLuong" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnXóa" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -157,10 +157,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i"/>
+        <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="TXTloai">
+    <Component class="javax.swing.JTextField" name="TXTSoLuong">
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>

@@ -46,7 +46,7 @@ public class SanPham extends javax.swing.JPanel {
         if (i != -1) {
             txtMaSP.setText(String.valueOf(spDAO.getALL().get(i).getMaSP()));
             txtTenSP.setText(String.valueOf(spDAO.getALL().get(i).getTenSP()));
-            TXTloai.setText(String.valueOf(spDAO.getALL().get(i).getLoai()));
+            TXTSoLuong.setText(String.valueOf(spDAO.getALL().get(i).getLoai()));
             TXTngayban.setText(String.valueOf(spDAO.getALL().get(i).getNgaydathang()));
             TXTgiaBan.setText(String.valueOf(spDAO.getALL().get(i).getGiaban()));
         }
@@ -55,7 +55,7 @@ public class SanPham extends javax.swing.JPanel {
     public void add(){
         int maSP = Integer.parseInt(txtMaSP.getText());
         String tenSP = txtTenSP.getText();
-        String loai = TXTloai.getText();
+        String loai = TXTSoLuong.getText();
         Date ngaydathang = Date.valueOf(TXTngayban.getText());
         int giaban = Integer.valueOf(TXTgiaBan.getText());
         model.SanPham sp = new model.SanPham(maSP,tenSP,loai,ngaydathang,giaban);
@@ -73,7 +73,7 @@ public class SanPham extends javax.swing.JPanel {
         if (i != -1) {          
         int maSP = Integer.parseInt(txtMaSP.getText());
         String tenSP = txtTenSP.getText();
-        String loai = TXTloai.getText();
+        String loai = TXTSoLuong.getText();
         Date ngaydathang = Date.valueOf(TXTngayban.getText());
         int giaban = Integer.valueOf(TXTgiaBan.getText());
         model.SanPham sp = new model.SanPham(maSP,tenSP,loai,ngaydathang,giaban);
@@ -91,7 +91,7 @@ public class SanPham extends javax.swing.JPanel {
      public void deleteSP() {
         int maSP = Integer.valueOf(txtMaSP.getText());
         String ten = txtTenSP.getText();
-        String loai = TXTloai.getText();
+        String loai = TXTSoLuong.getText();
         Date ngaydathang = Date.valueOf(TXTngayban.getText());
         int giaban = Integer.valueOf(TXTgiaBan.getText());
          model.SanPham sp = new model.SanPham(maSP,ten,loai,ngaydathang,giaban);
@@ -124,7 +124,7 @@ public class SanPham extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        TXTloai = new javax.swing.JTextField();
+        TXTSoLuong = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableSP = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
@@ -160,7 +160,7 @@ public class SanPham extends javax.swing.JPanel {
 
         jLabel2.setText("Tên Sản Phẩm");
 
-        jLabel3.setText("Loại");
+        jLabel3.setText("Số lượng");
 
         tableSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -205,7 +205,7 @@ public class SanPham extends javax.swing.JPanel {
                                     .addComponent(TXTgiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(TXTloai, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(TXTSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(btnXóa))
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -238,7 +238,7 @@ public class SanPham extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(TXTloai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TXTSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXóa))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -271,8 +271,8 @@ public class SanPham extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField TXTSoLuong;
     private javax.swing.JTextField TXTgiaBan;
-    private javax.swing.JTextField TXTloai;
     private javax.swing.JTextField TXTngayban;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
