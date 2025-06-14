@@ -21,7 +21,7 @@ import model.*;
 public class HoaDonChiTietDAO_1 {
      public List<ChiTietHoaDon> getAll() {
         List<ChiTietHoaDon> list = new ArrayList<>();
-        String sql = "select * from HoaDonChiTiet";
+        String sql = "select * from ChiTietHoaDon";
         try {
             Connection con = DBconnect.getConnection();
             Statement stm = con.createStatement();
@@ -56,7 +56,7 @@ public class HoaDonChiTietDAO_1 {
     }
 
     public int addHDCT(ChiTietHoaDon hdct) {
-        String sql = "insert into HoaDonChiTiet(MaCTHD, MaHD, MaSP, GhiChu, DonGia, TrangThai) values (?, ?, ?, ?, ?, ?)";
+        String sql = "insert into ChiTietHoaDon(MaCTHD, MaHD, MaSP, GhiChu, DonGia, TrangThai) values (?, ?, ?, ?, ?, ?)";
         try {
             Connection con = DBconnect.getConnection();
             PreparedStatement pstm = con.prepareStatement(sql);
