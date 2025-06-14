@@ -29,7 +29,7 @@ public class SanPham extends javax.swing.JPanel {
     
      public void initTable(){
         tablemodel = new DefaultTableModel();        
-        String[] cols = new String[]{"MÃ SẢn PHẨM","TÊN SẢN PHẨM","LOẠI","NGÀY ĐẶT HÀNG","GIÁ BÁN"};
+        String[] cols = new String[]{"MÃ SẢn PHẨM","TÊN SẢN PHẨM","SỐ LƯỢNG","NGÀY ĐẶT HÀNG","GIÁ BÁN"};
         tablemodel.setColumnIdentifiers(cols);
         tableSP.setModel(tablemodel);
     }
@@ -55,10 +55,10 @@ public class SanPham extends javax.swing.JPanel {
     public void add(){
         int maSP = Integer.parseInt(txtMaSP.getText());
         String tenSP = txtTenSP.getText();
-        String loai = TXTSoLuong.getText();
+        int soluong = Integer.valueOf(TXTSoLuong.getText());
         Date ngaydathang = Date.valueOf(TXTngayban.getText());
         int giaban = Integer.valueOf(TXTgiaBan.getText());
-        model.SanPham sp = new model.SanPham(maSP,tenSP,loai,ngaydathang,giaban);
+        model.SanPham sp = new model.SanPham(maSP, soluong, tenSP, ngaydathang, giaban);
         if (spDAO.getadd(sp)) {
             fillTable();
             JOptionPane.showMessageDialog(this, "Nhap thanh cong");
@@ -73,10 +73,10 @@ public class SanPham extends javax.swing.JPanel {
         if (i != -1) {          
         int maSP = Integer.parseInt(txtMaSP.getText());
         String tenSP = txtTenSP.getText();
-        String loai = TXTSoLuong.getText();
+        int soluong = Integer.valueOf(TXTSoLuong.getText());
         Date ngaydathang = Date.valueOf(TXTngayban.getText());
         int giaban = Integer.valueOf(TXTgiaBan.getText());
-        model.SanPham sp = new model.SanPham(maSP,tenSP,loai,ngaydathang,giaban);
+        model.SanPham sp = new model.SanPham(maSP, soluong, tenSP, ngaydathang, giaban);
         if (spDAO.UpdateSP(sp)) {
             JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
             fillTable();
@@ -91,10 +91,10 @@ public class SanPham extends javax.swing.JPanel {
      public void deleteSP() {
         int maSP = Integer.valueOf(txtMaSP.getText());
         String ten = txtTenSP.getText();
-        String loai = TXTSoLuong.getText();
+        int soluong = Integer.valueOf(TXTSoLuong.getText());
         Date ngaydathang = Date.valueOf(TXTngayban.getText());
         int giaban = Integer.valueOf(TXTgiaBan.getText());
-         model.SanPham sp = new model.SanPham(maSP,ten,loai,ngaydathang,giaban);
+        model.SanPham sp = new model.SanPham(maSP, soluong, ten, giaban, ngaydathang);
 
         if (spDAO.deleteHD(sp)) {
             fillTable();
@@ -161,6 +161,12 @@ public class SanPham extends javax.swing.JPanel {
         jLabel2.setText("Tên Sản Phẩm");
 
         jLabel3.setText("Số lượng");
+
+        TXTSoLuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTSoLuongActionPerformed(evt);
+            }
+        });
 
         tableSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -268,6 +274,10 @@ public class SanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
         deleteSP();
     }//GEN-LAST:event_btnXóaActionPerformed
+
+    private void TXTSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTSoLuongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTSoLuongActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

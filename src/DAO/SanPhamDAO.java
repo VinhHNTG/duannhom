@@ -19,11 +19,11 @@ import java.sql.Date;
 public class SanPhamDAO {
     public Object getRow(SanPham sp) {
         int maSP = sp.getMaSP();
-        String loai = sp.getLoai();
+        int soluong = sp.getLoai();
         String ten = sp.getTenSP();
         Date ngaydathang = sp.getNgaydathang();
         int giaban = sp.getGiaban();
-        Object[] row = new Object[]{maSP,loai,ten,ngaydathang,giaban};
+        Object[] row = new Object[]{maSP,soluong,ten,ngaydathang,giaban};
         return row;
     }
     
@@ -36,11 +36,11 @@ public class SanPhamDAO {
             ResultSet rs = stm.executeQuery(sql);
             while (rs.next()) {
                 int maSP = rs.getInt(1);
-                String loai = rs.getString(2);
+                int soluong = rs.getInt(2);
                 String ten = rs.getString(3);
                 Date ngaydathang = rs.getDate(4);
                 int giaBan = rs.getInt(5);
-                SanPham sp = new SanPham(maSP, loai, ten,ngaydathang,giaBan);
+                SanPham sp = new SanPham(maSP, soluong, ten,ngaydathang,giaBan);
                 listSP.add(sp);
             }
         } catch (Exception e) {
@@ -49,12 +49,12 @@ public class SanPhamDAO {
     }
      
       public boolean getadd(SanPham sp) {
-        String sql = "INSERT INTO SanPham(Ma, Loai, TenSP, NgayDatHang, GiaBan) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO SanPham(Ma, Soluong, TenSP, NgayDatHang, GiaBan) VALUES(?, ?, ?, ?, ?)";
         try {
             Connection con = DBconnect.getConnection();
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setInt(1, sp.getMaSP());
-            stm.setString(2, sp.getLoai());
+            stm.setInt(2, sp.getLoai());
             stm.setString(3, sp.getTenSP());
             stm.setDate(4, sp.getNgaydathang());
             stm.setInt(5, sp.getGiaban());
@@ -68,11 +68,11 @@ public class SanPhamDAO {
     }
     
     public boolean UpdateSP(SanPham sp) {
-        String sql = "UPDATE SanPham SET TenSP = ?, Loai = ?, NgayDatHang = ?, GiaBan = ?, where MaSP = ?";
+        String sql = "UPDATE SanPham SET TenSP = ?, Soluong = ?, NgayDatHang = ?, GiaBan = ?, where MaSP = ?";
         try {
             Connection con = DBconnect.getConnection();
             PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, sp.getLoai());
+            pstm.setInt(1, sp.getLoai());
             pstm.setString(2, sp.getTenSP());
             pstm.setDate(3, sp.getNgaydathang());
             pstm.setInt(4, sp.getGiaban());

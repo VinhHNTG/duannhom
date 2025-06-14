@@ -10,12 +10,12 @@ import java.sql.*;
  */
 public class SanPham {
     private int maSP;
-    private String loai;
+    private int soluong;
     private String tenSP;
     private int giaban;
     private Date ngaydathang;
 
-    public SanPham(int maSP1, String loai1, String ten, Date ngaydathang1, int giaBan) {
+    public SanPham(int maSP1, int soluong, String ten, Date ngaydathang1, int giaBan) {
     }
 
     
@@ -36,9 +36,9 @@ public class SanPham {
         this.ngaydathang = ngayban;
     }
 
-    public SanPham(int maSP, String loai, String tenSP, int giaban, Date ngaydathang) {
+    public SanPham(int maSP, int soluong, String tenSP, int giaban, Date ngaydathang) {
         this.maSP = maSP;
-        this.loai = loai;
+        this.soluong = soluong;
         this.tenSP = tenSP;
         this.giaban = giaban;
         this.ngaydathang = ngaydathang;
@@ -52,12 +52,12 @@ public class SanPham {
         this.maSP = maSP;
     }
 
-    public String getLoai() {
-        return loai;
+    public int getLoai() {
+        return soluong;
     }
 
-    public void setLoai(String loai) {
-        this.loai = loai;
+    public void setLoai(int loai) {
+        this.soluong = loai;
     }
 
     public String getTenSP() {
