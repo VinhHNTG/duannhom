@@ -51,6 +51,55 @@ public class SanPham extends javax.swing.JPanel {
             TXTgiaBan.setText(String.valueOf(spDAO.getALL().get(i).getGiaban()));
         }
     }
+    private boolean validateForm() {
+        if (txtMaSP.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm.");
+            return false;
+        }
+
+        if (txtTenSP.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm.");
+            return false;
+        }
+        if (TXTSoLuong.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập Số lượng.");
+            return false;
+        }
+
+        if (TXTngayban.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập ngày đặt hàng.");
+            return false;
+        }
+        if (TXTgiaBan.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập giá.");
+            return false;
+        }
+
+        // Validate ngày
+        try {
+            Date.valueOf(TXTngayban.getText().trim());
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, "Ngày đặt hàng không hợp lệ (định dạng yyyy-MM-dd).");
+            return false;
+        }
+
+        // Validate giá tiền
+        try {
+            Integer.parseInt(TXTgiaBan.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá tiền phải là số nguyên.");
+            return false;
+        }
+        try {
+            Integer.parseInt(TXTSoLuong.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số lượng phải là số nguyên.");
+            return false;
+        }
+
+        return true;
+    }
+
     
     public void add(){
         int maSP = Integer.parseInt(txtMaSP.getText());
@@ -70,14 +119,16 @@ public class SanPham extends javax.swing.JPanel {
     
     public void Update() {
         int i = tableSP.getSelectedRow();
-        if (i != -1) {          
+        if (i != -1) {  
+        model.SanPham spCu = spDAO.getALL().get(i);
+        int MaCu = spCu.getMaSP();
         int maSP = Integer.parseInt(txtMaSP.getText());
         String tenSP = txtTenSP.getText();
         int soluong = Integer.valueOf(TXTSoLuong.getText());
         Date ngaydathang = Date.valueOf(TXTngayban.getText());
         int giaban = Integer.valueOf(TXTgiaBan.getText());
         model.SanPham sp = new model.SanPham(maSP, soluong, tenSP, ngaydathang, giaban);
-        if (spDAO.UpdateSP(sp)) {
+        if (spDAO.UpdateSP(sp,MaCu)) {
             JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
             fillTable();
         } else {
@@ -89,19 +140,24 @@ public class SanPham extends javax.swing.JPanel {
     }
     
      public void deleteSP() {
-        int maSP = Integer.valueOf(txtMaSP.getText());
+        int i = tableSP.getSelectedRow();
+        if (i != -1) { 
+        int maSP = Integer.parseInt(txtMaSP.getText());
         String ten = txtTenSP.getText();
-        int soluong = Integer.valueOf(TXTSoLuong.getText());
+        int soluong = Integer.parseInt(TXTSoLuong.getText());
         Date ngaydathang = Date.valueOf(TXTngayban.getText());
-        int giaban = Integer.valueOf(TXTgiaBan.getText());
+        int giaban = Integer.parseInt(TXTgiaBan.getText());
         model.SanPham sp = new model.SanPham(maSP, soluong, ten, giaban, ngaydathang);
-
+        
         if (spDAO.deleteHD(sp)) {
             fillTable();
             JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Có lỗi xảy ra!");
-        }
+        } 
+        }else{
+            JOptionPane.showMessageDialog(this, "Chọn 1 hàng để xóa");
+         }
     }
     
     
@@ -262,17 +318,22 @@ public class SanPham extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        add();
+        if (validateForm() == true) {
+            add();
+            fillTable();
+        }    
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         Update();
+        fillTable();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXóaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXóaActionPerformed
         // TODO add your handling code here:
         deleteSP();
+        fillTable();
     }//GEN-LAST:event_btnXóaActionPerformed
 
     private void TXTSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTSoLuongActionPerformed

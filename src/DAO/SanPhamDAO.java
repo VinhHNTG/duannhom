@@ -67,15 +67,17 @@ public class SanPhamDAO {
         return false;
     }
     
-    public boolean UpdateSP(SanPham sp) {
-        String sql = "UPDATE SanPham SET TenSP = ?, Soluong = ?, NgayDatHang = ?, GiaBan = ?, where MaSP = ?";
+    public boolean UpdateSP(SanPham sp, int maCu) {
+        String sql = "UPDATE SanPham SET MaSP = ?, TenSP = ?, Soluong = ?, NgayDatHang = ?, GiaBan = ?, where MaSP = ?";
         try {
             Connection con = DBconnect.getConnection();
             PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setInt(1, sp.getLoai());
-            pstm.setString(2, sp.getTenSP());
-            pstm.setDate(3, sp.getNgaydathang());
-            pstm.setInt(4, sp.getGiaban());
+            pstm.setInt(1, sp.getMaSP());
+            pstm.setInt(2, sp.getLoai());
+            pstm.setString(3, sp.getTenSP());
+            pstm.setDate(4, sp.getNgaydathang());
+            pstm.setInt(5, sp.getGiaban());
+            pstm.setInt(6, maCu);
             if (pstm.executeUpdate() > 0) {
                 return true;
             }
