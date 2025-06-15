@@ -235,6 +235,11 @@ public class SanPham extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableSPMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableSP);
 
         jLabel4.setText("Ngày đặt hàng");
@@ -339,6 +344,11 @@ public class SanPham extends javax.swing.JPanel {
     private void TXTSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTSoLuongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTSoLuongActionPerformed
+
+    private void tableSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSPMouseClicked
+        // TODO add your handling code here:
+        showdetail();
+    }//GEN-LAST:event_tableSPMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

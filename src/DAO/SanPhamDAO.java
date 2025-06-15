@@ -49,7 +49,7 @@ public class SanPhamDAO {
     }
      
       public boolean getadd(SanPham sp) {
-        String sql = "INSERT INTO SanPham(Ma, Soluong, TenSP, NgayDatHang, GiaBan) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO SanPham(MaSP, Soluong, TenSP, NgayDatHang, GiaBan) VALUES(?, ?, ?, ?, ?)";
         try {
             Connection con = DBconnect.getConnection();
             PreparedStatement stm = con.prepareStatement(sql);

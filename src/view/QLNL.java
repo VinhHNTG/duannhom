@@ -28,6 +28,7 @@ public class QLNL extends javax.swing.JPanel {
         initComponents();
         initTable();
         fillTable();
+        showdetail();
     }
 
     public void initTable() {
@@ -42,6 +43,19 @@ public class QLNL extends javax.swing.JPanel {
         for (NguyenLieu nl : nlDao.getAll()) {
             tableModel.addRow(nlDao.getRow(nl));
         }
+    }
+    
+    public boolean showdetail() {
+        int i = TBnguyenLieu.getSelectedRow();
+        if (i != -1) {
+            TXTmaNL.setText(String.valueOf(nlDao.getAll().get(i).getMaSP()));
+            TXTtenNL.setText(String.valueOf(nlDao.getAll().get(i).getTenNL()));
+            TXTsoLuong.setText(String.valueOf(nlDao.getAll().get(i).getSoluong()));
+            TXTgiaNhap.setText(String.valueOf(nlDao.getAll().get(i).getGiaNhap()));
+            TXTmaSP.setText(String.valueOf(nlDao.getAll().get(i).getMaSP()));
+            return true;
+        }
+        return false;
     }
 
     private boolean validateForm() {
@@ -116,19 +130,24 @@ public class QLNL extends javax.swing.JPanel {
     }
     
      public void deleteNL() {
+         int i = TBnguyenLieu.getSelectedRow();
+         if (i != -1) { 
         int maNL = Integer.valueOf(TXTmaNL.getText());
         String tenNL = TXTtenNL.getText();
         int soluong = Integer.valueOf(TXTsoLuong.getText());
         String gianhap = TXTgiaNhap.getText();
         int maSP = Integer.valueOf(TXTmaSP.getText());
           model.NguyenLieu nl = new model.NguyenLieu(maNL,tenNL,soluong,gianhap,maSP);
-
+          
         if (nlDao.deleteNL(nl)==1) {
             fillTable();
             JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Có lỗi xảy ra!");
         }
+         }else{
+             JOptionPane.showMessageDialog(this, "Vui long chon 1 hang de xoa");
+         }
     }
 
     /**
@@ -182,6 +201,11 @@ public class QLNL extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TBnguyenLieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TBnguyenLieuMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TBnguyenLieu);
 
         BTupdateNL.setText("SỬA");
@@ -280,18 +304,31 @@ public class QLNL extends javax.swing.JPanel {
 
     private void BTaddNLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTaddNLActionPerformed
         // TODO add your handling code here:
-        add();
+        if(validateForm()){
+            add();
+            fillTable();
+        }
+        
     }//GEN-LAST:event_BTaddNLActionPerformed
 
     private void BTupdateNLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTupdateNLActionPerformed
         // TODO add your handling code here:
-        Update();
+            Update();
+        fillTable();
+        
+        
     }//GEN-LAST:event_BTupdateNLActionPerformed
 
     private void BTdeleteNLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTdeleteNLActionPerformed
         // TODO add your handling code here:
         deleteNL();
+        fillTable();
     }//GEN-LAST:event_BTdeleteNLActionPerformed
+
+    private void TBnguyenLieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBnguyenLieuMouseClicked
+showdetail();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TBnguyenLieuMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
