@@ -148,8 +148,8 @@ public class QLNL extends javax.swing.JPanel {
         String gianhap = TXTgiaNhap.getText();
         int maSP = Integer.valueOf(TXTmaSP.getText());
           model.NguyenLieu nl = new model.NguyenLieu(maNL,tenNL,soluong,gianhap,maSP);
-          
-        if (nlDao.deleteNL(nl)==1) {
+          int r = nlDao.deleteNL(maNL);
+        if (r==1) {
             fillTable();
             JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
         } else {

@@ -16,9 +16,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DoanhThu extends javax.swing.JPanel {
 DefaultTableModel tablemodel = new DefaultTableModel();
+DoanhThuDAO dtDao = new DoanhThuDAO();
     /** Creates new form DoanhThu */
     public DoanhThu() {
         initComponents();
+        initTable();
+        fillTable();
     }
 
     public void initTable() {
@@ -28,27 +31,22 @@ DefaultTableModel tablemodel = new DefaultTableModel();
         jTable1DoanhThu.setModel(tablemodel);
     }
 
-    public void fillTable() {
-        tablemodel.setRowCount(0);
-        int tongDoanhThu = 0;
-        DoanhThuDAO dtDao = new DoanhThuDAO();
+ public void fillTable() {
+    tablemodel.setRowCount(0);
+     dtDao = new DoanhThuDAO();
+    int tongDoanhThu = 0;
 
-        try {
-            for (model.DoanhThu dt : dtDao.getAll()) {
-                tablemodel.addRow(new Object[]{
-                    dt.getMaDT(),
-                    dt.getMaHD(),
-                    String.format("%,d VNĐ", dt.getTongTien())
-                });
-                tongDoanhThu += dt.getTongTien();
-            }
-
-            // Hiển thị tổng doanh thu
-            jLabel2.setText(String.format("%,d VNĐ", tongDoanhThu));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+    for (model.DoanhThu dt : dtDao.getAll()) {
+        tablemodel.addRow(new Object[]{
+            dt.getMaDT(),
+            dt.getMaHD(),
+            String.format("%,d VNĐ", dt.getTongTien())
+        });
+        tongDoanhThu += dt.getTongTien();
     }
+
+    jLabelTongDoanhThu.setText(String.format("%,d VNĐ", tongDoanhThu));
+}
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

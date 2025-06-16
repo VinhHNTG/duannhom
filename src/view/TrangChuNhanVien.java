@@ -154,7 +154,7 @@ public class TrangChuNhanVien extends javax.swing.JFrame {
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
         // TODO add your handling code here:
         Menu p1 = new Menu();
-        p1.setSize(987, 683);
+        p1.setSize(610, 671);
         p1.setLocation(0, 0);
         
         //b2: de panel vao form

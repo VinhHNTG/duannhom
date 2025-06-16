@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 /**
  *
@@ -97,24 +98,39 @@ public class SanPham extends javax.swing.JPanel {
         }
     }
     
-    public void add(){
-        int maSP = Integer.parseInt(txtMaSP.getText());
-        String tenSP = txtTenSP.getText();
-        int soluong = Integer.valueOf(TXTSoLuong.getText());
-        Date ngaydathang = Date.valueOf(TXTngayban.getText());
-        int giaban = Integer.valueOf(TXTgiaBan.getText());
-        model.SanPham sp = new model.SanPham(maSP, soluong, tenSP, giaban, ngaydathang);
-        if (spDAO.getadd(sp)) {
-            fillTable();
-            JOptionPane.showMessageDialog(this, "Nhap thanh cong");
-        }else{
-            JOptionPane.showMessageDialog(this, "Loi!");
+ public void add() {
+    int maSP = Integer.parseInt(txtMaSP.getText().trim());
+    String tenSP = txtTenSP.getText().trim();
+    int soluong = Integer.valueOf(TXTSoLuong.getText().trim());
+    int giaban = Integer.valueOf(TXTgiaBan.getText().trim());
+
+    // Kiểm tra nếu TXTngayban trống, dùng ngày hiện tại
+    Date ngaydathang;
+    if (TXTngayban.getText().trim().isEmpty()) {
+        ngaydathang = java.sql.Date.valueOf(LocalDate.now()); // Lấy ngày hiện tại đúng định dạng
+    } else {
+        try {
+            ngaydathang = java.sql.Date.valueOf(TXTngayban.getText().trim()); // Chuyển đổi ngày từ người dùng nhập
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, "Ngày nhập không hợp lệ! Định dạng phải là yyyy-MM-dd.");
+            return; // Dừng lại nếu ngày sai định dạng
         }
-        
     }
+
+    model.SanPham sp = new model.SanPham(maSP, soluong, tenSP, giaban, ngaydathang);
+    int r = spDAO.ThemDL(sp);
+
+    if (r == 1) {
+        fillTable();
+        JOptionPane.showMessageDialog(this, "Nhập thành công!");
+    } else {
+        JOptionPane.showMessageDialog(this, "Lỗi!");
+    }
+}
     
     public void Update() {
         int i = tableSP.getSelectedRow();
+        int mcu = spDAO.getALL().get(i).getMaSP(); // Lấy mã sản phẩm cũ
         if (i != -1) {          
         int maSP = Integer.parseInt(txtMaSP.getText());
         String tenSP = txtTenSP.getText();
@@ -122,7 +138,8 @@ public class SanPham extends javax.swing.JPanel {
         Date ngaydathang = Date.valueOf(TXTngayban.getText());
         int giaban = Integer.valueOf(TXTgiaBan.getText());
         model.SanPham sp = new model.SanPham(maSP, soluong, tenSP, giaban, ngaydathang);
-        if (spDAO.UpdateSP(sp)) {
+        int r = spDAO.Updatesp(sp,mcu);
+        if (r==1) {
             JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
             fillTable();
         } else {
@@ -140,8 +157,8 @@ public class SanPham extends javax.swing.JPanel {
         Date ngaydathang = Date.valueOf(TXTngayban.getText());
         int giaban = Integer.valueOf(TXTgiaBan.getText());
         model.SanPham sp = new model.SanPham(maSP, soluong, ten, giaban, ngaydathang);
-
-        if (spDAO.deleteHD(sp)) {
+        int r = spDAO.deleteHD(maSP);
+        if (r==1) {
             fillTable();
             JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
         } else {

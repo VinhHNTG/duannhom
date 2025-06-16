@@ -75,7 +75,8 @@ public class QLKH extends javax.swing.JPanel {
         String sdt = txtSdt.getText();
         String diachi = txtDiaChi.getText();
         model.KhachHang kh = new model.KhachHang(maKH,tenKH,sdt,diachi);
-        if (khDao.addKH(kh)==1) {
+        int r = khDao.ThemKH(kh);
+        if (r==1) {
             fillTable();
             JOptionPane.showMessageDialog(this, "Nhap thanh cong");
         }else{
@@ -91,7 +92,8 @@ public class QLKH extends javax.swing.JPanel {
         String sdt = txtSdt.getText();
         String diachi = txtDiaChi.getText();
         model.KhachHang kh = new model.KhachHang(maKH, tenKH, sdt, diachi);
-        if (khDao.editKH(kh)==1) {
+        int r = khDao.SuaKH(kh);
+        if (r==1) {
             JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
             fillTable();
         } else {
@@ -108,8 +110,8 @@ public class QLKH extends javax.swing.JPanel {
         String sdt = txtSdt.getText();
         String diachi = txtDiaChi.getText();
          model.KhachHang kh = new model.KhachHang(maKH,tenKH,sdt,diachi);
-
-        if (khDao.deleteKH(kh)==1) {
+         int r = khDao.DeleteKH(kh);
+        if (r==1) {
             fillTable();
             JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
         } else {
