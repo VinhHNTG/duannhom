@@ -8,98 +8,107 @@ import javax.swing.table.DefaultTableModel;
 import DAO.NhanVienDao;
 import java.sql.Date;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author ADMIN
  */
 public class NhanVien extends javax.swing.JPanel {
 
-    private static boolean UpdateNV(model.NhanVien nv) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-
+    int index = -1;
     DefaultTableModel tableModel;
     NhanVienDao nvDao = new NhanVienDao();
+
     /**
      * Creates new form NewJPanel
      */
     public NhanVien() {
         initComponents();
+        initTable();
+        fillTable();
     }
-         public void initTable(){
-        tableModel = new DefaultTableModel();        
-        String[] cols = new String[]{"MÃ NHÂN VIÊN","TÊN NHÂN VIÊN","NĂM SINH","SỐ ĐIỆN THOẠI","CHỨC VỤ"};
+
+    public void initTable() {
+        tableModel = new DefaultTableModel();
+        String[] cols = new String[]{"MÃ NHÂN VIÊN", "TÊN NHÂN VIÊN", "NĂM SINH", "SỐ ĐIỆN THOẠI", "CHỨC VỤ"};
         tableModel.setColumnIdentifiers(cols);
         tableNV.setModel(tableModel);
     }
-    
-    public void fillTable(){
+
+    public void fillTable() {
         tableModel.setRowCount(0);
         for (model.NhanVien nv : nvDao.getALL()) {
-            tableModel.addRow((Object[]) nvDao.getRow(nv));
+            tableModel.addRow(nvDao.getRow(nv));
         }
     }
-        public void showdetail() {
+
+    public void showdetail() {
         int i = tableNV.getSelectedRow();
         if (i != -1) {
             txtMaNV.setText(String.valueOf(nvDao.getALL().get(i).getMaNV()));
-             txtTenNV.setText(String.valueOf(nvDao.getALL().get(i).getTenNV()));
+            txtTenNV.setText(String.valueOf(nvDao.getALL().get(i).getTenNV()));
             txtTuoi.setText(String.valueOf(nvDao.getALL().get(i).getNamSinh()));
-              txtSDT.setText(String.valueOf(nvDao.getALL().get(i).getSdt()));
+            txtSDT.setText(String.valueOf(nvDao.getALL().get(i).getSdt()));
             txtChucVu.setText(String.valueOf(nvDao.getALL().get(i).getChucVu()));
         }
     }
-            public void add(){
+
+    public void add() {
         int maNV = Integer.parseInt(txtMaNV.getText());
         String tenNV = txtTenNV.getText();
         String namSinh = txtTuoi.getText();
         String SDT = txtSDT.getText();
         String chucVu = txtChucVu.getText();
-        model.NhanVien nv = new model.NhanVien(maNV,tenNV,namSinh,SDT,chucVu);
-        if (nvDao.getadd(nv)) {
+        model.NhanVien nv = new model.NhanVien(maNV, tenNV, namSinh, SDT, chucVu);
+        int fix = nvDao.getadd(nv);
+        if (fix == 1) {
             fillTable();
             JOptionPane.showMessageDialog(this, "Nhap thanh cong");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Loi!");
         }
-        
+
     }
-        public void Update() {
-        int i = tableNV.getSelectedRow();
-        if (i != -1) {          
-        int maNV = Integer.parseInt(txtMaNV.getText());
-        String tenNV = txtTenNV.getText();
-        String namSinh = txtTuoi.getText();
-        String SDT = txtSDT.getText();
-        String chucVu = txtChucVu.getText();
-        model.NhanVien nv = new model.NhanVien(maNV,tenNV,namSinh,SDT,chucVu);
-        if (NhanVien.UpdateNV(nv)) {
-            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
-            fillTable();
+
+    public void Update() {
+        index = tableNV.getSelectedRow();
+        if (index >= 0) {
+            int MaCu = nvDao.getALL().get(index).getMaNV();
+            
+            int maNV = Integer.parseInt(txtMaNV.getText());
+            String tenNV = txtTenNV.getText();
+            String namSinh = txtTuoi.getText();
+            String SDT = txtSDT.getText();
+            String chucVu = txtChucVu.getText();
+            model.NhanVien nv = new model.NhanVien(maNV, tenNV, namSinh, SDT, chucVu);
+            
+            int re = nvDao.Update(nv, MaCu);
+            if (re == 1) {
+                JOptionPane.showMessageDialog(this, "Sủa Dữ Liệu Thành Công");
+                fillTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa dữ liệu thất bại");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thất bại");
-        } 
-        }else{
             JOptionPane.showMessageDialog(this, "Vui long chon 1 hang de sua");
         }
     }
-    
-     public void deleteNV() {
-        int maNV = Integer.valueOf(txtMaNV.getText());
-        String tenNV = txtTenNV.getText();
-        String namSinh = txtTuoi.getText();
-        String SDT = txtSDT.getText();
-        String chucVu = txtChucVu.getText();
-        model.NhanVien nv = new model.NhanVien(maNV,tenNV,namSinh,SDT,chucVu);
-
-        if (nvDao.deleteHD(nv)) {
-            fillTable();
-            JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra!");
+    // Xoá Nhân Viên
+    public void deleteNV() {
+        index = tableNV.getSelectedRow();
+        if (index >= 0) {
+            int Ma = nvDao.getALL().get(index).getMaNV();
+            int re = nvDao.getdelete(Ma);
+            if (re == 1) {
+                fillTable();
+                JOptionPane.showMessageDialog(this, "Xoa Thành Công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Loi!");
+            }
         }
     }
+
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -259,7 +268,7 @@ public class NhanVien extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        Update();
+         Update();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXóaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXóaActionPerformed

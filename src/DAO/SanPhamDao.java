@@ -4,22 +4,24 @@
  */
 package DAO;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.SanPham;
 import service.DBconnect;
-import java.sql.Date;
 
 /**
  *
- * @author ACER
+ * @author ADMIN
  */
-public class SanPhamDAO {
-    public Object getRow(SanPham sp) {
+public class SanPhamDao {
+    public Object[] getRow(SanPham sp) {
         int maSP = sp.getMaSP();
-        int soluong = sp.getLoai();
+        int soluong = sp.getSoluong();
         String ten = sp.getTenSP();
         Date ngaydathang = sp.getNgaydathang();
         int giaban = sp.getGiaban();
@@ -40,7 +42,7 @@ public class SanPhamDAO {
                 String ten = rs.getString(3);
                 Date ngaydathang = rs.getDate(4);
                 int giaBan = rs.getInt(5);
-                SanPham sp = new SanPham(maSP, soluong, ten,ngaydathang,giaBan);
+                SanPham sp = new SanPham(maSP, soluong, ten, giaBan, ngaydathang);
                 listSP.add(sp);
             }
         } catch (Exception e) {
@@ -49,12 +51,12 @@ public class SanPhamDAO {
     }
      
       public boolean getadd(SanPham sp) {
-        String sql = "INSERT INTO SanPham(MaSP, Soluong, TenSP, NgayDatHang, GiaBan) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO SanPham(Ma, Soluong, TenSP, NgayDatHang, GiaBan) VALUES(?, ?, ?, ?, ?)";
         try {
             Connection con = DBconnect.getConnection();
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setInt(1, sp.getMaSP());
-            stm.setInt(2, sp.getLoai());
+            stm.setInt(2, sp.getSoluong());
             stm.setString(3, sp.getTenSP());
             stm.setDate(4, sp.getNgaydathang());
             stm.setInt(5, sp.getGiaban());
@@ -67,17 +69,15 @@ public class SanPhamDAO {
         return false;
     }
     
-    public boolean UpdateSP(SanPham sp, int maCu) {
-        String sql = "UPDATE SanPham SET MaSP = ?, TenSP = ?, Soluong = ?, NgayDatHang = ?, GiaBan = ?, where MaSP = ?";
+    public boolean UpdateSP(SanPham sp) {
+        String sql = "UPDATE SanPham SET TenSP = ?, Soluong = ?, NgayDatHang = ?, GiaBan = ?, where MaSP = ?";
         try {
             Connection con = DBconnect.getConnection();
             PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setInt(1, sp.getMaSP());
-            pstm.setInt(2, sp.getLoai());
-            pstm.setString(3, sp.getTenSP());
-            pstm.setDate(4, sp.getNgaydathang());
-            pstm.setInt(5, sp.getGiaban());
-            pstm.setInt(6, maCu);
+            pstm.setInt(1, sp.getSoluong());
+            pstm.setString(2, sp.getTenSP());
+            pstm.setDate(3, sp.getNgaydathang());
+            pstm.setInt(4, sp.getGiaban());
             if (pstm.executeUpdate() > 0) {
                 return true;
             }
@@ -102,4 +102,3 @@ public class SanPhamDAO {
         return false;
     }
 }
-

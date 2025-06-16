@@ -15,10 +15,40 @@ public class SanPham {
     private int giaban;
     private Date ngaydathang;
 
-    public SanPham(int maSP1, int soluong, String ten, Date ngaydathang1, int giaBan) {
+    public SanPham(int maSP, int soluong, String tenSP, int giaban, Date ngaydathang) {
+        this.maSP = maSP;
+        this.soluong = soluong;
+        this.tenSP = tenSP;
+        this.giaban = giaban;
+        this.ngaydathang = ngaydathang;
     }
 
-    
+    public SanPham() {
+    }
+
+    public int getMaSP() {
+        return maSP;
+    }
+
+    public void setMaSP(int maSP) {
+        this.maSP = maSP;
+    }
+
+    public int getSoluong() {
+        return soluong;
+    }
+
+    public void setSoluong(int soluong) {
+        this.soluong = soluong;
+    }
+
+    public String getTenSP() {
+        return tenSP;
+    }
+
+    public void setTenSP(String tenSP) {
+        this.tenSP = tenSP;
+    }
 
     public int getGiaban() {
         return giaban;
@@ -32,40 +62,10 @@ public class SanPham {
         return ngaydathang;
     }
 
-    public void setNgaydathang(Date ngayban) {
-        this.ngaydathang = ngayban;
-    }
-
-    public SanPham(int maSP, int soluong, String tenSP, int giaban, Date ngaydathang) {
-        this.maSP = maSP;
-        this.soluong = soluong;
-        this.tenSP = tenSP;
-        this.giaban = giaban;
+    public void setNgaydathang(Date ngaydathang) {
         this.ngaydathang = ngaydathang;
     }
 
-    public int getMaSP() {
-        return maSP;
-    }
-
-    public void setMaSP(int maSP) {
-        this.maSP = maSP;
-    }
-
-    public int getLoai() {
-        return soluong;
-    }
-
-    public void setLoai(int loai) {
-        this.soluong = loai;
-    }
-
-    public String getTenSP() {
-        return tenSP;
-    }
-
-    public void setTenSP(String tenSP) {
-        this.tenSP = tenSP;
-    }
+    
 
 }

@@ -61,7 +61,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Trà sữa xoài");
 
-        CaPheSua1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/service/tải xuống (3).jpg"))); // NOI18N
+        CaPheSua1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\OneDrive\\Desktop\\duannhom\\src\\service\\tải xuống (3).jpg")); // NOI18N
         CaPheSua1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CaPheSua1ActionPerformed(evt);
@@ -95,7 +95,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Trà sữa dâu");
 
-        CaPheSua2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/service/tải xuống (2).jpg"))); // NOI18N
+        CaPheSua2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\OneDrive\\Desktop\\duannhom\\src\\service\\tải xuống (2).jpg")); // NOI18N
         CaPheSua2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CaPheSua2ActionPerformed(evt);
@@ -134,7 +134,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Trà sữa chân trâu đường đen");
 
-        CaPheSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/service/tải xuống.jpg"))); // NOI18N
+        CaPheSua.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\OneDrive\\Desktop\\duannhom\\src\\service\\tải xuống.jpg")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,7 +161,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Trà sữa Matcha");
 
-        CaPheSua4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/service/tải xuống (1).jpg"))); // NOI18N
+        CaPheSua4.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\OneDrive\\Desktop\\duannhom\\src\\service\\tải xuống (1).jpg")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
