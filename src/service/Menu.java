@@ -54,14 +54,13 @@ public class Menu extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         CaPheSua4 = new javax.swing.JButton();
-        BT_back = new javax.swing.JButton();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Trà sữa xoài");
 
-        CaPheSua1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\OneDrive\\Desktop\\duannhom\\src\\service\\tải xuống (3).jpg")); // NOI18N
+        CaPheSua1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/service/tải xuống (3).jpg"))); // NOI18N
         CaPheSua1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CaPheSua1ActionPerformed(evt);
@@ -95,7 +94,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Trà sữa dâu");
 
-        CaPheSua2.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\OneDrive\\Desktop\\duannhom\\src\\service\\tải xuống (2).jpg")); // NOI18N
+        CaPheSua2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/service/tải xuống (2).jpg"))); // NOI18N
         CaPheSua2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CaPheSua2ActionPerformed(evt);
@@ -134,7 +133,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Trà sữa chân trâu đường đen");
 
-        CaPheSua.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\OneDrive\\Desktop\\duannhom\\src\\service\\tải xuống.jpg")); // NOI18N
+        CaPheSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/service/tải xuống.jpg"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,7 +160,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Trà sữa Matcha");
 
-        CaPheSua4.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\OneDrive\\Desktop\\duannhom\\src\\service\\tải xuống (1).jpg")); // NOI18N
+        CaPheSua4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/service/tải xuống (1).jpg"))); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -186,14 +185,6 @@ public class Menu extends javax.swing.JPanel {
                 .addGap(0, 25, Short.MAX_VALUE))
         );
 
-        BT_back.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        BT_back.setText("BACK");
-        BT_back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BT_backActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,14 +200,9 @@ public class Menu extends javax.swing.JPanel {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(44, 44, 44))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(lbQLNV))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(259, 259, 259)
-                        .addComponent(BT_back, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(271, 271, 271)
+                .addComponent(lbQLNV)
+                .addContainerGap(274, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,9 +216,7 @@ public class Menu extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BT_back, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -244,13 +228,8 @@ public class Menu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_CaPheSua2ActionPerformed
 
-    private void BT_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_backActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BT_backActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BT_back;
     private javax.swing.JButton CaPheSua;
     private javax.swing.JButton CaPheSua1;
     private javax.swing.JButton CaPheSua2;

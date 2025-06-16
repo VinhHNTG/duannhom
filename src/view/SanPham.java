@@ -4,8 +4,7 @@
  */
 package view;
 
-import DAO.SanPhamDAO;
-import DAO.SanPhamDAO;
+import DAO.SanPhamDao;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.*;
@@ -23,7 +22,7 @@ public class SanPham extends javax.swing.JPanel {
         fillTable();
     }
     DefaultTableModel tablemodel;
-    SanPhamDAO spDAO = new SanPhamDAO();
+    SanPhamDao spDAO = new SanPhamDao();
     /**
      * Creates new form SanPham
      */
@@ -40,6 +39,51 @@ public class SanPham extends javax.swing.JPanel {
         for ( model.SanPham sp : spDAO.getALL()) {
             tablemodel.addRow( spDAO.getRow(sp));
         }
+    }
+        
+         private boolean validateForm() {
+        if (txtMaSP.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm.");
+            return false;
+        }
+        if (txtTenSP.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm.");
+            return false;
+        }
+        if (TXTSoLuong.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng.");
+            return false;
+        }
+        try {
+            int soluong = Integer.parseInt(TXTSoLuong.getText().trim());
+            if (soluong <= 0) {
+                JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số lượng phải là số hợp lệ.");
+            return false;
+        }
+        if (TXTngayban.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập ngày bán.");
+            return false;
+        }
+        if (TXTgiaBan.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập giá bán.");
+            return false;
+        }               
+        try {
+            double gia = Double.parseDouble(TXTgiaBan.getText().trim());
+            if (gia <= 0) {
+                JOptionPane.showMessageDialog(this, "Giá nhập phải lớn hơn 0.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Giá nhập phải là số hợp lệ.");
+            return false;
+        }
+         
+        return true;
     }
     
     public void showdetail() {
@@ -180,6 +224,11 @@ public class SanPham extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableSPMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableSP);
 
         jLabel4.setText("Ngày đặt hàng");
@@ -263,12 +312,19 @@ public class SanPham extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        add();
+        if(validateForm()){
+          add();
+          fillTable();
+        }
+        
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        Update();
+        if(validateForm()){
+          Update();
+          fillTable();
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXóaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXóaActionPerformed
@@ -279,6 +335,11 @@ public class SanPham extends javax.swing.JPanel {
     private void TXTSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTSoLuongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTSoLuongActionPerformed
+
+    private void tableSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSPMouseClicked
+        // TODO add your handling code here:
+        showdetail();
+    }//GEN-LAST:event_tableSPMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

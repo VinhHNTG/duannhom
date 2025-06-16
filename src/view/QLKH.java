@@ -56,6 +56,16 @@ public class QLKH extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng địa chỉ.");
             return false;
         }
+        try {
+             String sdt = txtSdt.getText().trim();
+    if (sdt.length() != 10) {
+        JOptionPane.showMessageDialog(this, "Số điện thoại phải có đúng 10 chữ số.");
+        return false;
+    }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ko được điền kí tự vào SDT.");
+            return false;
+        }
             return true;
             }
 

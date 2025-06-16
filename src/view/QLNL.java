@@ -70,7 +70,17 @@ public class QLNL extends javax.swing.JPanel {
         if (TXTsoLuong.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng.");
             return false;
-        }        
+        }  
+         try {
+            int soluong = Integer.parseInt(TXTsoLuong.getText().trim());
+            if (soluong <= 0) {
+                JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số lượng phải là số hợp lệ.");
+            return false;
+        }
         if (TXTgiaNhap.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập giá nhập.");
             return false;

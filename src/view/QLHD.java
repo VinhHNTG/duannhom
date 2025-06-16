@@ -297,12 +297,18 @@ public class QLHD extends javax.swing.JPanel {
 
     private void BTaddDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTaddDHActionPerformed
         // TODO add your handling code here:
-        add();
+        if(validateForm()){
+            add();
+            fillTable();
+        }
     }//GEN-LAST:event_BTaddDHActionPerformed
 
     private void BTupdateDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTupdateDHActionPerformed
         // TODO add your handling code here:
-        Update();
+        if(validateForm()){
+            Update();
+            fillTable();
+        }
     }//GEN-LAST:event_BTupdateDHActionPerformed
 
     private void BTdeleteDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTdeleteDHActionPerformed

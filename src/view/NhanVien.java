@@ -41,6 +41,44 @@ public class NhanVien extends javax.swing.JPanel {
             tableModel.addRow(nvDao.getRow(nv));
         }
     }
+    
+   private boolean validateForm() {
+        if (txtMaNV.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã nhân viên.");
+            return false;
+        }
+        if (txtTenNV.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên nhân viên.");
+            return false;
+        }
+        if (txtTuoi.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập năm sinh.");
+            return false;
+        }
+        if (txtSDT.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập SDT.");
+            return false;
+        }
+        if (txtChucVu.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập chức vụ.");
+            return false;
+        }               
+        if (txtSDT.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập SDT.");
+            return false;
+        }
+        try {
+             String sdt = txtSDT.getText().trim();
+    if (sdt.length() != 10) {
+        JOptionPane.showMessageDialog(this, "Số điện thoại phải có đúng 10 chữ số.");
+        return false;
+    }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ko được điền kí tự vào SDT.");
+            return false;
+        }
+        return true;
+    }
 
     public void showdetail() {
         int i = tableNV.getSelectedRow();
@@ -145,6 +183,12 @@ public class NhanVien extends javax.swing.JPanel {
         jLabel4.setText("Số điện thoại");
 
         jLabel5.setText("Chức vụ");
+
+        txtSDT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSDTActionPerformed(evt);
+            }
+        });
 
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -263,12 +307,18 @@ public class NhanVien extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        add();
+        if(validateForm()){
+           add();
+           fillTable();
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-         Update();
+         if(validateForm()){
+           Update();
+           fillTable();
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXóaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXóaActionPerformed
@@ -280,6 +330,10 @@ public class NhanVien extends javax.swing.JPanel {
         // TODO add your handling code here:
         showdetail();
     }//GEN-LAST:event_tableNVMouseClicked
+
+    private void txtSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSDTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSDTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
