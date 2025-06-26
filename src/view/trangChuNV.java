@@ -66,7 +66,7 @@ public class trangChuNV extends javax.swing.JFrame {
         jPanelCN.setLayout(jPanelCNLayout);
         jPanelCNLayout.setHorizontalGroup(
             jPanelCNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
+            .addGap(0, 518, Short.MAX_VALUE)
         );
         jPanelCNLayout.setVerticalGroup(
             jPanelCNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +92,7 @@ public class trangChuNV extends javax.swing.JFrame {
         });
 
         btnQLNL.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnQLNL.setText("Quản Lý Nguyên Liệu");
+        btnQLNL.setText("Quản Lý Hóa Đơn");
         btnQLNL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQLNLActionPerformed(evt);
@@ -318,7 +318,7 @@ public class trangChuNV extends javax.swing.JFrame {
 
     private void btnQLNLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLNLActionPerformed
         // TODO add your handling code here:
-                QLNL p1 = new QLNL();
+                QLHD p1 = new QLHD();
         p1.setSize(740, 573); // Hoặc bạn có thể bỏ qua setSize hoàn toàn
         p1.setLocation(0, 0);
 

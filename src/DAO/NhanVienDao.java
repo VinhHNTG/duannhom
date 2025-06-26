@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
-
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.NhanVien;
 import model.SanPham;
 import service.DBconnect;
@@ -51,6 +52,38 @@ public class NhanVienDao {
         }
         return listNV;
     }
+    public boolean checkExist(int maNV) {
+    String sql = "SELECT COUNT(*) FROM NhanVien WHERE MaNV = ?";
+    try (Connection con = DBconnect.getConnection();
+         PreparedStatement pstm = con.prepareStatement(sql)) {
+        
+        pstm.setInt(1, maNV);
+        ResultSet rs = pstm.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0; // Trả về true nếu mã nhân viên đã tồn tại
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+public String CheckTuoi(String namSinh) {
+    try {
+        int birthYear = Integer.parseInt(namSinh); // Chuyển đổi năm sinh từ chuỗi sang số nguyên
+        int currentYear = java.time.Year.now().getValue(); // Lấy năm hiện tại
+        int tuoi = currentYear - birthYear; // Tính tuổi
+
+        if (tuoi < 18) {
+            JOptionPane.showMessageDialog(null, "Nhân viên phải từ 18 tuổi trở lên!");
+            return "-1"; // Trả về "-1" nếu tuổi không hợp lệ
+        }
+
+        return String.valueOf(tuoi); // Trả về tuổi dưới dạng chuỗi
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Năm sinh không hợp lệ! Vui lòng nhập năm sinh dạng số.");
+        return "-1"; // Trả về "-1" nếu có lỗi
+    }
+}
 
     public int getadd(NhanVien nv) {
         String sql = "INSERT INTO NhanVien VALUES(?, ?, ?, ?, ?)";

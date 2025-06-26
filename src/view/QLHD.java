@@ -167,6 +167,56 @@ public void addHD() {
             TXTmaKH.setText(String.valueOf(MaKH));
         }
     }
+    
+public void Update() {
+    index = TBHoaDon.getSelectedRow();
+    if (index >= 0) {
+        // Lấy mã hóa đơn cũ (khóa chính)
+        int MaCu = hdDao.getAll().get(index).getMaHD(); 
+        
+        // Không thay đổi mã hóa đơn (maHD)
+        int maNV = Integer.parseInt(TXTmaNV.getText());
+        Date NgayDat = Date.valueOf(TXTngayDat.getText());
+        double donGia = Double.valueOf(TXTgia.getText());
+        int maKH = Integer.parseInt(TXTmaKH.getText());
+
+        // Tạo đối tượng hóa đơn với mã cũ
+        HoaDon hd = new HoaDon(MaCu, maNV, NgayDat, donGia, maKH);
+
+        // Gọi phương thức cập nhật, truyền vào MaCu thay vì HEIGHT
+        int re = hdDao.updateHD(hd, MaCu);
+        if (re == 1) {
+            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
+            fillTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thất bại");
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để sửa");
+    }
+}
+
+public void Delete() {
+    index = TBHoaDon.getSelectedRow();
+    if (index >= 0) {
+        int maHD = hdDao.getAll().get(index).getMaHD(); // Lấy mã hóa đơn cần xóa
+        
+        int confirm = JOptionPane.showConfirmDialog(this, 
+            "Bạn có chắc chắn muốn xóa hóa đơn này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            int re = hdDao.deleteHD(maHD);
+            if (re == 1) {
+                JOptionPane.showMessageDialog(this, "Xóa dữ liệu thành công");
+                fillTable(); // Cập nhật lại bảng sau khi xóa
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa dữ liệu thất bại");
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa");
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -198,6 +248,8 @@ public void addHD() {
         jPanel3 = new javax.swing.JPanel();
         BTaddDH = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
+        btnXóa = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -343,6 +395,20 @@ public void addHD() {
             }
         });
 
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
+
+        btnXóa.setText("Xóa");
+        btnXóa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXóaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -350,18 +416,27 @@ public void addHD() {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BTaddDH, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BTaddDH, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnXóa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(BTaddDH, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnXóa, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -423,6 +498,19 @@ public void addHD() {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        if(validateForm()){
+            Update();
+            fillTable();
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXóaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXóaActionPerformed
+        // TODO add your handling code here:
+        Delete();
+    }//GEN-LAST:event_btnXóaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTaddDH;
@@ -433,7 +521,9 @@ public void addHD() {
     private javax.swing.JTextField TXTmaKH1;
     private javax.swing.JTextField TXTmaNV;
     private javax.swing.JTextField TXTngayDat;
+    private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTimKiem;
+    private javax.swing.JButton btnXóa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

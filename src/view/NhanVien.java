@@ -90,23 +90,58 @@ public class NhanVien extends javax.swing.JPanel {
             txtChucVu.setText(String.valueOf(nvDao.getALL().get(i).getChucVu()));
         }
     }
+    
+    public String CheckTuoi(String namSinh) {
+    try {
+        int birthYear = Integer.parseInt(namSinh); // Chuyển đổi năm sinh từ chuỗi sang số nguyên
+        int currentYear = java.time.Year.now().getValue(); // Lấy năm hiện tại
+        int tuoi = currentYear - birthYear; // Tính tuổi
 
-    public void add() {
+        if (tuoi < 18) {
+            JOptionPane.showMessageDialog(null, "Nhân viên phải từ 18 tuổi trở lên!");
+            return "-1"; // Trả về "-1" nếu tuổi không hợp lệ
+        }
+
+        return String.valueOf(tuoi); // Trả về tuổi dưới dạng chuỗi
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Năm sinh không hợp lệ! Vui lòng nhập năm sinh dạng số.");
+        return "-1"; // Trả về "-1" nếu có lỗi
+    }
+}
+
+public void add() {
+    try {
         int maNV = Integer.parseInt(txtMaNV.getText());
         String tenNV = txtTenNV.getText();
         String namSinh = txtTuoi.getText();
         String SDT = txtSDT.getText();
         String chucVu = txtChucVu.getText();
+
+        // Kiểm tra mã nhân viên có bị trùng không
+        if (nvDao.checkExist(maNV)) {
+            JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại!");
+            return;
+        }
+
+        // Kiểm tra tuổi (từ 18 trở lên)
+        String tuoi = CheckTuoi(namSinh); // Giữ tuổi dưới dạng String
+        if (tuoi.equals("-1")) {
+            return; // Nếu năm sinh không hợp lệ, dừng lại
+        }
+
+        // Tạo đối tượng nhân viên và thêm vào cơ sở dữ liệu
         model.NhanVien nv = new model.NhanVien(maNV, tenNV, namSinh, SDT, chucVu);
         int fix = nvDao.getadd(nv);
         if (fix == 1) {
             fillTable();
-            JOptionPane.showMessageDialog(this, "Nhap thanh cong");
+            JOptionPane.showMessageDialog(this, "Nhập thành công");
         } else {
-            JOptionPane.showMessageDialog(this, "Loi!");
+            JOptionPane.showMessageDialog(this, "Lỗi!");
         }
-
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số!");
     }
+}
 
     public void Update() {
         index = tableNV.getSelectedRow();
@@ -395,4 +430,6 @@ public class NhanVien extends javax.swing.JPanel {
     private javax.swing.JTextField txtTenNV;
     private javax.swing.JTextField txtTuoi;
     // End of variables declaration//GEN-END:variables
+
+
 }
