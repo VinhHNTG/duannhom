@@ -11,19 +11,19 @@ package model;
 public class NguyenLieu {
     private int MaNL;
     private String TenNL;
-    private String GiaNhap;
+    private double GiaNhap;
     private int Soluong;
     private int MaSP;
 
-    public NguyenLieu(int maNL, String tenNL, int soluong, String gianhap, int maSP) {
-    }
-
-    public NguyenLieu(int MaNL, String TenNL, String GiaNhap, int Soluong, int MaSP) {
+    public NguyenLieu(int MaNL, String TenNL, double GiaNhap, int Soluong, int MaSP) {
         this.MaNL = MaNL;
         this.TenNL = TenNL;
         this.GiaNhap = GiaNhap;
         this.Soluong = Soluong;
         this.MaSP = MaSP;
+    }
+
+    public NguyenLieu() {
     }
 
     public int getMaNL() {
@@ -42,11 +42,11 @@ public class NguyenLieu {
         this.TenNL = TenNL;
     }
 
-    public String getGiaNhap() {
+    public double getGiaNhap() {
         return GiaNhap;
     }
 
-    public void setGiaNhap(String GiaNhap) {
+    public void setGiaNhap(double GiaNhap) {
         this.GiaNhap = GiaNhap;
     }
 
@@ -65,5 +65,6 @@ public class NguyenLieu {
     public void setMaSP(int MaSP) {
         this.MaSP = MaSP;
     }
+
     
 }

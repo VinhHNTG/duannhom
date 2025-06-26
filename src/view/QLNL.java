@@ -20,6 +20,7 @@ public class QLNL extends javax.swing.JPanel {
      */
    DefaultTableModel tableModel;
     NguyenLieuDAO nlDao = new NguyenLieuDAO();
+     int index = -1;
 
     /**
      * Creates new form QLNLpanel
@@ -104,61 +105,70 @@ public class QLNL extends javax.swing.JPanel {
         return true;
     }
     
-    public void add(){
-        int maNL = Integer.parseInt(TXTmaNL.getText());
-        String tenNL = TXTtenNL.getText();
-        int soluong = Integer.valueOf(TXTsoLuong.getText());
-        String gianhap = TXTgiaNhap.getText();
-        int maSP = Integer.parseInt(TXTmaSP.getText());
-        model.NguyenLieu nl = new model.NguyenLieu(maNL,tenNL,soluong,gianhap,maSP);
-        if (nlDao.addNL(nl)==1) {
+    public void add() {
+    try {
+        int maNL = Integer.parseInt(TXTmaNL.getText().trim());
+        String tenNL = TXTtenNL.getText().trim();
+        double giaNhap =Double.valueOf(TXTgiaNhap.getText().trim()) ;
+        int soLuong = Integer.parseInt(TXTsoLuong.getText().trim());
+        int maSP = Integer.parseInt(TXTmaSP.getText().trim());
+
+        model.NguyenLieu nl = new model.NguyenLieu(maNL, tenNL, giaNhap, soLuong, maSP);
+        int result = nlDao.addNL(nl);
+        if (result == 1) {
             fillTable();
-            JOptionPane.showMessageDialog(this, "Nhap thanh cong");
-        }else{
-            JOptionPane.showMessageDialog(this, "Loi!");
-        } 
-    }
-    
-    public void Update() {
-        int i = TBnguyenLieu.getSelectedRow();
-        if (i != -1) { 
-        int maNL = Integer.valueOf(TXTmaNL.getText());
-        String tenNL = TXTtenNL.getText();
-        int soluong = Integer.valueOf(TXTsoLuong.getText());
-        String gianhap = TXTgiaNhap.getText();
-        int maSP = Integer.valueOf(TXTmaSP.getText());
-         model.NguyenLieu nl = new model.NguyenLieu(maNL,tenNL,soluong,gianhap,maSP);
-        if (nlDao.editNL(nl)==1) {
-            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
-            fillTable();
+            JOptionPane.showMessageDialog(this, "Thêm nguyên liệu thành công!");
         } else {
-            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thất bại");
-        } 
-        }else{
-            JOptionPane.showMessageDialog(this, "Vui long chon 1 hang de sua");
+            JOptionPane.showMessageDialog(this, "Thêm thất bại! (Có thể MaSP không tồn tại)");
         }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số!");
     }
-    
-     public void deleteNL() {
-         int i = TBnguyenLieu.getSelectedRow();
-         if (i != -1) { 
-        int maNL = Integer.valueOf(TXTmaNL.getText());
-        String tenNL = TXTtenNL.getText();
-        int soluong = Integer.valueOf(TXTsoLuong.getText());
-        String gianhap = TXTgiaNhap.getText();
-        int maSP = Integer.valueOf(TXTmaSP.getText());
-          model.NguyenLieu nl = new model.NguyenLieu(maNL,tenNL,soluong,gianhap,maSP);
-          int r = nlDao.deleteNL(maNL);
-        if (r==1) {
+}
+
+public void update() {
+    index =TBnguyenLieu.getSelectedRow();
+    if (index >= 0) {
+        try {
+            int maCu = nlDao.getAll().get(index).getMaNL();
+
+            int maNL = Integer.parseInt(TXTmaNL.getText().trim());
+            String tenNL = TXTtenNL.getText().trim();
+            double giaNhap =Double.valueOf(TXTgiaNhap.getText().trim()) ;
+            int soLuong = Integer.parseInt(TXTsoLuong.getText().trim());
+            int maSP = Integer.parseInt(TXTmaSP.getText().trim());
+
+            model.NguyenLieu nl = new model.NguyenLieu(maNL, tenNL, giaNhap, soLuong, maSP);
+            int result = nlDao.editNL(nl); // Không cần truyền maCu nếu editNL update theo maNL
+            if (result == 1) {
+                JOptionPane.showMessageDialog(this, "Sửa nguyên liệu thành công!");
+                fillTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại!");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số!");
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 hàng để sửa!");
+    }
+}
+
+public void deleteNL() {
+    index = TBnguyenLieu.getSelectedRow();
+    if (index >= 0) {
+        int maNL = nlDao.getAll().get(index).getMaNL();
+        int result = nlDao.deleteNL(maNL);
+        if (result == 1) {
             fillTable();
-            JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
+            JOptionPane.showMessageDialog(this, "Xoá nguyên liệu thành công!");
         } else {
-            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra!");
+            JOptionPane.showMessageDialog(this, "Xoá thất bại!");
         }
-         }else{
-             JOptionPane.showMessageDialog(this, "Vui long chon 1 hang de xoa");
-         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 hàng để xoá!");
     }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -322,8 +332,8 @@ public class QLNL extends javax.swing.JPanel {
     }//GEN-LAST:event_BTaddNLActionPerformed
 
     private void BTupdateNLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTupdateNLActionPerformed
-        // TODO add your handling code here:
-            Update();
+        // TOO add your handling code here:
+            update();
         fillTable();
         
         

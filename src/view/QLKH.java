@@ -16,6 +16,7 @@ import model.*;
 public class QLKH extends javax.swing.JPanel {
     DefaultTableModel tableModel;
     KhachHangDAO khDao = new KhachHangDAO();
+  
     /**
      * Creates new form Menu
      */
@@ -29,7 +30,7 @@ public class QLKH extends javax.swing.JPanel {
         String[] cols = new String[]{"Mã KH", "Tên KH", "Giới tính", "Tuổi", "Số bàn"};
         tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(cols);
-        tableKH.setModel(tableModel);
+        jTablekh.setModel(tableModel);
     }
 
     public void fillTable() {
@@ -69,56 +70,77 @@ public class QLKH extends javax.swing.JPanel {
             return true;
             }
 
-        public void add(){
-        int maKH = Integer.parseInt(txtMakh.getText());
-        String tenKH = txtTenkh.getText();
-        String sdt = txtSdt.getText();
-        String diachi = txtDiaChi.getText();
-        model.KhachHang kh = new model.KhachHang(maKH,tenKH,sdt,diachi);
-        int r = khDao.ThemKH(kh);
-        if (r==1) {
-            fillTable();
-            JOptionPane.showMessageDialog(this, "Nhap thanh cong");
-        }else{
-            JOptionPane.showMessageDialog(this, "Loi!");
-        } 
-    }
-    
-    public void Update() {
-        int i = tableKH.getSelectedRow();
-        if (i != -1) {          
-        int maKH = Integer.parseInt(txtMakh.getText());
-        String tenKH = txtTenkh.getText();
-        String sdt = txtSdt.getText();
-        String diachi = txtDiaChi.getText();
+        public void add() {
+    try {
+        int maKH = Integer.parseInt(txtMakh.getText().trim());
+        String tenKH = txtTenkh.getText().trim();
+        String sdt = txtSdt.getText().trim();
+        String diachi = txtDiaChi.getText().trim();
+
         model.KhachHang kh = new model.KhachHang(maKH, tenKH, sdt, diachi);
-        int r = khDao.SuaKH(kh);
-        if (r==1) {
-            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thành công");
+        int r = khDao.ThemKH(kh);
+        if (r == 1) {
             fillTable();
+            JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công!");
         } else {
-            JOptionPane.showMessageDialog(this, "Sửa dữ liệu thất bại");
-        } 
-        }else{
-            JOptionPane.showMessageDialog(this, "Vui long chon 1 hang de sua");
+            JOptionPane.showMessageDialog(this, "Thêm khách hàng thất bại!");
         }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Mã khách hàng phải là số!");
     }
-    
-     public void deleteSP() {
-        int maKH = Integer.valueOf(txtMakh.getText());
-        String tenKH = txtTenkh.getText();
-        String sdt = txtSdt.getText();
-        String diachi = txtDiaChi.getText();
-         model.KhachHang kh = new model.KhachHang(maKH,tenKH,sdt,diachi);
-         int r = khDao.DeleteKH(kh);
-        if (r==1) {
+}
+
+public void update() {
+    int i = jTablekh.getSelectedRow();
+    if (i != -1) {
+        try {
+            int maKH = Integer.parseInt(txtMakh.getText().trim());
+            String tenKH = txtTenkh.getText().trim();
+            String sdt = txtSdt.getText().trim();
+            String diachi = txtDiaChi.getText().trim();
+
+            model.KhachHang kh = new model.KhachHang(maKH, tenKH, sdt, diachi);
+            int r = khDao.SuaKH(kh, maKH); // Sửa HEIGHT => maKH
+            if (r == 1) {
+                JOptionPane.showMessageDialog(this, "Sửa khách hàng thành công!");
+                fillTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa khách hàng thất bại!");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Mã khách hàng phải là số!");
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 hàng để sửa!");
+    }
+}
+
+public void deleteKH() { // Đổi tên hàm cho đúng ý nghĩa
+    try {
+        int maKH = Integer.parseInt(txtMakh.getText().trim());
+        int r = khDao.DeleteKH(maKH);
+        if (r == 1) {
             fillTable();
-            JOptionPane.showMessageDialog(this, "Xóa sản phẩm mới thành công!");
+            JOptionPane.showMessageDialog(this, "Xóa khách hàng thành công!");
         } else {
-            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra!");
+            JOptionPane.showMessageDialog(this, "Xóa khách hàng thất bại!");
         }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Mã khách hàng phải là số!");
     }
-     
+}
+
+     public boolean showdetail() {
+    int i = jTablekh.getSelectedRow(); // Đổi tên bảng thành bảng Khách Hàng
+    if (i != -1) {
+        txtMakh.setText(String.valueOf(khDao.getAll().get(i).getMaKH())); 
+        txtTenkh.setText(String.valueOf(khDao.getAll().get(i).getTenKH())); 
+        txtSdt.setText(String.valueOf(khDao.getAll().get(i).getSdt())); 
+        txtDiaChi.setText(String.valueOf(khDao.getAll().get(i).getDiaChi())); 
+        return true;
+    }
+    return false;
+}
      public void reset(){
          txtMakh.setText("");
          txtTenkh.setText("");
@@ -144,12 +166,12 @@ public class QLKH extends javax.swing.JPanel {
         txtTenkh = new javax.swing.JTextField();
         txtSdt = new javax.swing.JTextField();
         txtDiaChi = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableKH = new javax.swing.JTable();
         txtThem = new javax.swing.JButton();
         txtSua = new javax.swing.JButton();
         txtXoa = new javax.swing.JButton();
         txtLammoi = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTablekh = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Quản Lý Khách Hàng");
@@ -161,19 +183,6 @@ public class QLKH extends javax.swing.JPanel {
         jLabel4.setText("Số Điện Thoại");
 
         jLabel5.setText("Địa Chỉ");
-
-        tableKH.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Mã Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Địa Chỉ"
-            }
-        ));
-        jScrollPane1.setViewportView(tableKH);
 
         txtThem.setText("Thêm");
         txtThem.addActionListener(new java.awt.event.ActionListener() {
@@ -203,39 +212,56 @@ public class QLKH extends javax.swing.JPanel {
             }
         });
 
+        jTablekh.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTablekh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablekhMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTablekh);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTenkh, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMakh, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtLammoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenkh, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMakh, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtLammoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(32, 32, 32))
             .addGroup(layout.createSequentialGroup()
                 .addGap(203, 203, 203)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,9 +293,9 @@ public class QLKH extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtLammoi)))
-                .addGap(18, 24, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -280,18 +306,23 @@ public class QLKH extends javax.swing.JPanel {
 
     private void txtSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSuaActionPerformed
         // TODO add your handling code here:
-        Update();
+        update();
     }//GEN-LAST:event_txtSuaActionPerformed
 
     private void txtXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtXoaActionPerformed
         // TODO add your handling code here:
-        Update();
+        deleteKH();
     }//GEN-LAST:event_txtXoaActionPerformed
 
     private void txtLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLammoiActionPerformed
         // TODO add your handling code here:
         reset();
     }//GEN-LAST:event_txtLammoiActionPerformed
+
+    private void jTablekhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablekhMouseClicked
+        // TODO add your handling code here:
+        showdetail();
+    }//GEN-LAST:event_jTablekhMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -300,8 +331,8 @@ public class QLKH extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tableKH;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTablekh;
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JButton txtLammoi;
     private javax.swing.JTextField txtMakh;

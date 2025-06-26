@@ -22,104 +22,112 @@ import service.DBconnect;
  */
 public class NguyenLieuDAO {
     public List<NguyenLieu> getAll() {
-        List<NguyenLieu> listPB = new ArrayList<>();
-        String sql = "SELECT * FROM NguyenLieu";
-        try {
-            Connection con = DBconnect.getConnection();
-            Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery(sql);
-            while (rs.next()) {
-                int MaNL = rs.getInt("MaNL");
-                String TenNL = rs.getString("TenNL");
-                String gianhap = rs.getString("GiaNhap");
-                int soluong = rs.getInt("Soluong");
-                int maSP = rs.getInt("MaSP");
+    List<NguyenLieu> listPB = new ArrayList<>();
+    String sql = "SELECT * FROM NguyenLieu";
+    try (
+        Connection con = DBconnect.getConnection();
+        Statement stm = con.createStatement();
+        ResultSet rs = stm.executeQuery(sql)
+    ) {
+        while (rs.next()) {
+            int maNL = rs.getInt(1);
+            String tenNL = rs.getString(2);
+            double giaNhap = rs.getDouble(3);  // assuming numeric
+            int soLuong = rs.getInt(4);
+            int maSP = rs.getInt(5);
 
-                NguyenLieu nl = new NguyenLieu(MaNL, TenNL, gianhap, soluong, maSP);
-                listPB.add(nl);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            NguyenLieu nl = new  NguyenLieu(maNL, tenNL, giaNhap, soLuong, maSP);
+            listPB.add(nl);
         }
-        return listPB;
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return listPB;
+}
 
-    public Object[] getRow(NguyenLieu nl) {
-        return new Object[]{nl.getMaNL(), nl.getTenNL(), nl.getSoluong(), nl.getGiaNhap(), nl.getMaSP()};
-    }
+public Object[] getRow(NguyenLieu nl) {
+    return new Object[]{
+        nl.getMaNL(),
+        nl.getTenNL(),
+        nl.getSoluong(),
+        nl.getGiaNhap(),
+        nl.getMaSP()
+    };
+}
 
-    public int addNL(NguyenLieu nl) {
-//        if (!existsMaSP(nl.getMaSP())) {
-//            System.out.println("Mã sản phẩm không tồn tại! Không thể thêm nguyên liệu.");
-//            return 0;
-//        }
-
-        String sql = "INSERT INTO NguyenLieu VALUES\n" +
-                     "(   ?   , ?   , ?   , ?  , ?   )";
-        try {
-            Connection con = DBconnect.getConnection();
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setInt(1, nl.getMaNL());
-            pstm.setString(2, nl.getTenNL());
-            pstm.setInt(3, nl.getSoluong());
-            pstm.setString(4, nl.getGiaNhap());
-            pstm.setInt(5, nl.getMaSP());
-
-            if (pstm.executeUpdate() > 0) {
-                return 1;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+public int addNL(NguyenLieu nl) {
+    if (!existsMaSP(nl.getMaSP())) {
+        System.out.println("Mã sản phẩm không tồn tại! Không thể thêm nguyên liệu.");
         return 0;
     }
 
-    public int editNL(NguyenLieu nl) {
-        String sql = "UPDATE NguyenLieu SET MaNL = ?, TenNL = ?, Soluong = ?, GiaNhap = ?, MaSP = ? WHERE MaNL = ?";
-        try {
-            Connection con = DBconnect.getConnection();
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setInt(1, nl.getMaNL());
-            pstm.setString(2, nl.getTenNL());
-            pstm.setInt(3, nl.getSoluong());
-            pstm.setString(4, nl.getGiaNhap());
-            pstm.setInt(5, nl.getMaSP());
-            pstm.setInt(6, nl.getMaNL());
+    String sql = "INSERT INTO NguyenLieu (MaNL, TenNL, GiaNhap, SoLuong, MaSP) VALUES (?, ?, ?, ?, ?)";
+    try (
+        Connection con = DBconnect.getConnection();
+        PreparedStatement pstm = con.prepareStatement(sql)
+    ) {
+        pstm.setInt(1, nl.getMaNL());
+        pstm.setString(2, nl.getTenNL());
+        pstm.setDouble(3, nl.getGiaNhap());
+        pstm.setInt(4, nl.getSoluong());
+        pstm.setInt(5, nl.getMaSP());
 
-            return pstm.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
+        return pstm.executeUpdate();
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return 0;
+}
 
-    public int deleteNL(int MaNL) {
-        String sql = "DELETE FROM NguyenLieu WHERE MaNL = ?";
-        try {
-            Connection con = DBconnect.getConnection();
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setInt(1, MaNL);
+public int editNL(NguyenLieu nl) {
+    String sql = "UPDATE NguyenLieu SET TenNL = ?, GiaNhap = ?, SoLuong = ?, MaSP = ? WHERE MaNL = ?";
+    try (
+        Connection con = DBconnect.getConnection();
+        PreparedStatement pstm = con.prepareStatement(sql)
+    ) {
+        pstm.setString(1, nl.getTenNL());
+        pstm.setDouble(2,nl.getGiaNhap());;
+        pstm.setInt(3, nl.getSoluong());
+        pstm.setInt(4, nl.getMaSP());
+        pstm.setInt(5, nl.getMaNL());
 
-            return pstm.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
+        return pstm.executeUpdate();
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return 0;
+}
 
-    private boolean existsMaSP(int maSP) {
-        try {
-            Connection con = DBconnect.getConnection();
-            String sql = "SELECT COUNT(*) FROM SanPham WHERE MaSP = ?";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setInt(1, maSP);
-            ResultSet rs = pstm.executeQuery();
-            if (rs.next() && rs.getInt(1) > 0) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+public int deleteNL(int maNL) {
+    String sql = "DELETE FROM NguyenLieu WHERE MaNL = ?";
+    try (
+        Connection con = DBconnect.getConnection();
+        PreparedStatement pstm = con.prepareStatement(sql)
+    ) {
+        pstm.setInt(1, maNL);
+        return pstm.executeUpdate();
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return 0;
+}
+
+// Sửa tên hàm cho đúng ý nghĩa
+private boolean existsMaSP(int maSP) {
+    String sql = "SELECT COUNT(*) FROM SanPham WHERE MaSP = ?";
+    try (
+        Connection con = DBconnect.getConnection();
+        PreparedStatement pstm = con.prepareStatement(sql)
+    ) {
+        pstm.setInt(1, maSP);
+        ResultSet rs = pstm.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
 }

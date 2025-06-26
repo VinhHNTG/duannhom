@@ -101,11 +101,4 @@ public int SuaKH(KhachHang kh, int TheoMa) {
         return 0;
     }
 
-    public int SuaKH(KhachHang kh) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public int DeleteKH(KhachHang kh) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
