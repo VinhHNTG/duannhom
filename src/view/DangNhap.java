@@ -20,10 +20,10 @@ public class DangNhap extends javax.swing.JFrame {
     }
 
     public void Login(){
-        String user = TXTtaiKhoan.getText();
+    String user = TXTtaiKhoan.getText();
     String pass = new String(PASSmk.getPassword());
 
-    if (user.equals("nv") && pass.equals("123")) {
+    if (user.equals("nv") && pass.equals("1234")) {
         JOptionPane.showMessageDialog(this, "Đăng nhập thành công (Nhân viên)");
         new trangChuNV().setVisible(true);
         this.dispose(); // Đóng form đăng nhập
